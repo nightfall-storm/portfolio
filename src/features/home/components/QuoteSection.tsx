@@ -9,7 +9,7 @@ export function QuoteSection() {
       </div>
       
       <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-300 leading-tight uppercase relative z-10 max-w-4xl">
-        "Software is not a product. It is a <span className="text-accent-cyan">living architecture</span> that must be maintained with rigorous precision."
+        &ldquo;Software is not a product. It is a <span className="text-accent-cyan">living architecture</span> that must be maintained with rigorous precision.&rdquo;
       </h2>
 
       <div className="mt-16 flex flex-col items-center gap-4">

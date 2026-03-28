@@ -1,54 +1,54 @@
 # Bilal N. Nasser Portfolio - GEMINI.md
 
 ## Project Overview
-This project is a modern, high-performance personal portfolio website built using the **Next.js 16 App Router** and **React 19**. It leverages **Tailwind CSS 4** for styling and a collection of accessible, reusable UI components based on **shadcn/ui** and **Base UI**.
+This project is a modern, high-performance personal portfolio website built using the **Next.js 16 App Router** and **React 19**. It features a "Brutalist System" aesthetic with a dark technical theme, monospace typography, and high-interactivity.
 
 - **Framework:** Next.js 16.2.1 (App Router)
 - **Library:** React 19.2.4
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS 4 with `oklch` color tokens
-- **Package Manager:** Bun (primary), though compatible with others.
-- **UI Components:** shadcn/ui (customized), Base UI primitives
+- **Animations:** 
+  - **GSAP:** For high-performance imperative animations, complex transitions, and scroll-triggered effects.
+- **UI Components:** shadcn/ui (customized), Base UI primitives (v1.3.0+)
 - **Icons:** Lucide React
-- **Animation:** tw-animate-css
-- **Forms:** React Hook Form + Zod
+- **Design:** Brutalist, Dark Navy (`#08090f`), Accent Cyan (`#89b4fa`), Grid overlays.
+
+## Documentation References
+- **Base UI:** [https://base-ui.com/llms.txt](https://base-ui.com/llms.txt) (Mandatory for component implementation)
+- **Next.js:** Official App Router documentation.
+- **Tailwind 4:** CSS-first configuration.
 
 ## Architecture
-- `src/app/`: Contains the application's routes, layouts, and global styles (`globals.css`).
+- `src/app/`: Application routes, layouts, and global `globals.css`.
 - `src/components/`:
-  - `ui/`: Reusable primitive components (e.g., Button, Card, Carousel). These follow the shadcn/ui pattern but are customized to use Tailwind 4 and Base UI.
-  - `shared/`: Generic components used across multiple features.
-- `src/features/`: Feature-sliced architecture for domain-specific logic.
-  - `home/`: Components and common logic specific to the home page.
-- `src/core/`: Application-wide core configurations and state.
-- `src/lib/`: Core utility functions (`utils.ts`) and global providers (`providers/`).
-- `public/`: Static assets such as logos and images.
+  - `ui/`: Reusable primitive components. Follows shadcn/ui pattern but uses **Base UI** logic.
+  - `shared/`: Generic components (Navbar, Footer, CustomCursor).
+- `src/features/`: Feature-sliced architecture.
+  - `home/`: Page-specific sections (Hero, TechTicker, ProjectMatrix, etc.).
+- `src/lib/`: Core utilities (`cn` helper) and providers.
 
 ## Building and Running
-The project uses `bun` as the primary package manager.
-
 | Command | Description |
 | :--- | :--- |
-| `bun dev` | Starts the development server at `http://localhost:3000`. |
-| `bun run build` | Compiles the application for production. |
-| `bun run start` | Runs the built production server. |
-| `bun run lint` | Executes ESLint to check for code quality issues. |
+| `bun dev` | Starts development server. |
+| `bun run build` | Production build. |
+| `bun run typecheck` | Runs type checking and linting. |
 
 ## Development Conventions
 
-### Styling
-- **Tailwind CSS 4:** Utilize the new `@theme` block in `src/app/globals.css` for defining design tokens.
-- **Color Space:** Theme variables use `oklch()` for better perceptual uniformity and wider gamut support.
-- **Class Merging:** Always use the `cn(...)` utility from `@/lib/utils` when combining conditional Tailwind classes.
+### Styling & Theme
+- **Color:** Primary background is `#08090f`. Accent is `#89b4fa` (Cyan).
+- **Typography:** Sans-serif for headings, Monospace for technical data/subtitles.
+- **Grid:** Use `bg-grid-pattern` for the blueprint/matrix look.
 
-### Components
-- **Client Components:** Use the `"use client"` directive at the top of files that require state, effects, or browser APIs.
-- **UI Primitives:** When adding new UI components, place them in `src/components/ui/` and follow the established pattern of separating logic (Base UI) from styling (Tailwind + CVA).
-- **Feature Slicing:** Prefer grouping page-specific components in `src/features/[feature]/components/` to keep `src/components/ui/` clean.
+### Base UI Integration
+- **Polymorphism:** Use the `render` prop for element composition instead of `asChild` (which is Radix-specific).
+- **Example:** `<Button render={<a href="..." />} />`
 
-### TypeScript & Linting
-- Strict typing is encouraged for all components and utilities.
-- Run `bun run lint` before committing to ensure adherence to established code standards.
+### Animations
+- **GSAP Context:** Always use `gsap.context()` inside `useEffect` or `useLayoutEffect` for proper cleanup in React.
+- **ScrollTrigger:** Utilize GSAP's ScrollTrigger for viewport-dependent reveals and parallax effects.
 
-### Routing
-- Follow the Next.js App Router conventions: use `page.tsx` for routes and `layout.tsx` for shared structures.
+### Quality Control
+- **Typecheck:** Run `bun run typecheck` regularly to verify `tsc` and `eslint`.
+- **Naming:** Uppercase for "system-level" identifiers (e.g., `PROJECT_MATRIX`, `ESTABLISH_COMM`).
