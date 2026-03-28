@@ -27,7 +27,7 @@ function ExperienceCard({
   const [isTouch, setIsTouch] = useState(false);
 
   useEffect(() => {
-    setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    setIsTouch(window.matchMedia("(pointer: coarse)").matches);
   }, []);
   
   const x = useMotionValue(0);
@@ -85,8 +85,8 @@ function ExperienceCard({
           {badge}
         </div>
         
-        <div className="mb-6">
-          <h3 className="text-2xl font-black tracking-tighter text-zinc-100 uppercase leading-none">
+        <div className="mb-6 text-left">
+          <h3 className="text-2xl font-black tracking-tighter text-zinc-100 uppercase leading-none text-left">
             {title}
           </h3>
           <div className="text-accent-cyan/60 font-mono text-[10px] tracking-[0.2em] mt-2 uppercase flex items-center gap-2 text-left">
@@ -99,15 +99,15 @@ function ExperienceCard({
           {highlights.map((h, i) => (
             <li key={i} className="flex items-start gap-3 text-left">
               <span className="text-accent-cyan/30 font-bold shrink-0">{">"}</span> 
-              <span className="text-balance">{h}</span>
+              <span className="text-balance text-left">{h}</span>
             </li>
           ))}
         </ul>
       </div>
 
       {isLead && (
-        <div className="mt-8 pt-6 border-t border-zinc-800/40 relative z-10">
-          <div className="flex items-center gap-3">
+        <div className="mt-8 pt-6 border-t border-zinc-800/40 relative z-10 text-left">
+          <div className="flex items-center gap-3 text-left">
             <div className="px-2 py-0.5 border border-accent-cyan/20 bg-accent-cyan/5 text-accent-cyan font-mono text-[8px] tracking-[0.2em] uppercase">
               LEADERSHIP_ROLE
             </div>
@@ -137,77 +137,79 @@ export function ExperienceSection() {
 
   return (
     <section className="w-full max-w-[1400px] mx-auto px-6 py-24 sm:py-32" id="experience">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-zinc-800/40 pb-6 mb-16 gap-4 text-left">
-        <div className="flex flex-col gap-2">
-          <span className="font-mono text-[8px] sm:text-[9px] text-accent-cyan/50 tracking-[0.5em] uppercase flex items-center gap-2 text-left">
-            <Terminal className="w-3 h-3" /> PROFESSIONAL_LOG_V2.5
-          </span>
-          <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-100 uppercase text-left">EXPERIENCE_PRO</h2>
+      <div className="flex flex-col gap-12 text-left">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-zinc-800/40 pb-6 mb-4 gap-4 text-left">
+          <div className="flex flex-col gap-2 text-left">
+            <span className="font-mono text-[8px] sm:text-[9px] text-accent-cyan/50 tracking-[0.5em] uppercase flex items-center gap-2 text-left">
+              <Terminal className="w-3 h-3" /> PROFESSIONAL_LOG_V2.5
+            </span>
+            <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-100 uppercase text-left">EXPERIENCE_PRO</h2>
+          </div>
+          <div className="font-mono text-[8px] sm:text-[9px] text-zinc-600 tracking-[0.4em] uppercase text-left">
+            STABLE_RELEASE <span className="text-zinc-800 mx-3">{`//`}</span> STATUS: ACTIVE
+          </div>
         </div>
-        <div className="font-mono text-[8px] sm:text-[9px] text-zinc-600 tracking-[0.4em] uppercase text-left">
-          STABLE_RELEASE <span className="text-zinc-800 mx-3">{`//`}</span> STATUS: ACTIVE
-        </div>
+
+        <motion.div 
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left"
+        >
+          <motion.div variants={item}>
+            <ExperienceCard 
+              id="01"
+              title="LOGICIEL_LAB"
+              subtitle="LEAD_FRONTEND_ENGINEER"
+              date="FEB_2025_PRESENT"
+              isLead
+              badge={
+                <span className="flex items-center gap-2 text-accent-cyan/80 text-left">
+                  <span className="w-1 h-1 bg-accent-cyan animate-pulse shadow-[0_0_8px_#89b4fa]" />
+                  CURRENT
+                </span>
+              }
+              highlights={[
+                "DRIVE_FRONTEND_DEV_FASGO_POSTULY",
+                "TECHNICAL_OPS_CI_CD_CLOUDFLARE",
+                "MENTOR_DEVELOPERS_LIFECYCLE_MGMT",
+                "ARCHITECT_UI_SYSTEMS_HIGH_STANDARDS"
+              ]}
+            />
+          </motion.div>
+
+          <motion.div variants={item}>
+            <ExperienceCard 
+              id="02"
+              title="MEDIACARIS"
+              subtitle="FRONTEND_DEV_INTERN"
+              date="OCT_2024_FEB_2025"
+              highlights={[
+                "DEV_ULTRACONTROLE_MA_FR_SYSTEM",
+                "AUTOMOBILE_VISIT_TECHNICAL_DASH",
+                "APPOINTMENT_MGMT_ORCHESTRATOR",
+                "MULTI_LANGUAGE_UI_ARCHITECTURE"
+              ]}
+            />
+          </motion.div>
+
+          <motion.div variants={item}>
+            <ExperienceCard 
+              id="03"
+              title="ECI_SYSTEMS"
+              subtitle="WEB_DEV_INTERN"
+              date="MAY_2024_JUN_2024"
+              highlights={[
+                "ASP.NET_CORE_ENTITY_FW_CRUD",
+                "AUTH_&_SESSION_ARCHITECTURE",
+                "AUTO_EMAIL_NOTIF_ENGINE",
+                "TASK_MGMT_SYSTEM_DEV"
+              ]}
+            />
+          </motion.div>
+        </motion.div>
       </div>
-
-      <motion.div 
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-100px" }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left"
-      >
-        <motion.div variants={item}>
-          <ExperienceCard 
-            id="01"
-            title="LOGICIEL_LAB"
-            subtitle="LEAD_FRONTEND_ENGINEER"
-            date="FEB_2025_PRESENT"
-            isLead
-            badge={
-              <span className="flex items-center gap-2 text-accent-cyan/80">
-                <span className="w-1 h-1 bg-accent-cyan animate-pulse shadow-[0_0_8px_#89b4fa]" />
-                CURRENT
-              </span>
-            }
-            highlights={[
-              "DRIVE_FRONTEND_DEV_FASGO_POSTULY",
-              "TECHNICAL_OPS_CI_CD_CLOUDFLARE",
-              "MENTOR_DEVELOPERS_LIFECYCLE_MGMT",
-              "ARCHITECT_UI_SYSTEMS_HIGH_STANDARDS"
-            ]}
-          />
-        </motion.div>
-
-        <motion.div variants={item}>
-          <ExperienceCard 
-            id="02"
-            title="MEDIACARIS"
-            subtitle="FRONTEND_DEV_INTERN"
-            date="OCT_2024_FEB_2025"
-            highlights={[
-              "DEV_ULTRACONTROLE_MA_FR_SYSTEM",
-              "AUTOMOBILE_VISIT_TECHNICAL_DASH",
-              "APPOINTMENT_MGMT_ORCHESTRATOR",
-              "MULTI_LANGUAGE_UI_ARCHITECTURE"
-            ]}
-          />
-        </motion.div>
-
-        <motion.div variants={item}>
-          <ExperienceCard 
-            id="03"
-            title="ECI_SYSTEMS"
-            subtitle="WEB_DEV_INTERN"
-            date="MAY_2024_JUN_2024"
-            highlights={[
-              "ASP.NET_CORE_ENTITY_FW_CRUD",
-              "AUTH_&_SESSION_ARCHITECTURE",
-              "AUTO_EMAIL_NOTIF_ENGINE",
-              "TASK_MGMT_SYSTEM_DEV"
-            ]}
-          />
-        </motion.div>
-      </motion.div>
     </section>
   );
 }

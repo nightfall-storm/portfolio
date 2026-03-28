@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion, Variants } from "motion/react";
 import { GraduationCap, MapPin, Calendar, BookOpen } from "lucide-react";
 
@@ -37,6 +37,12 @@ const EDUCATION: EducationEntry[] = [
 ];
 
 export function AcademySection() {
+  const [isTouch, setIsTouch] = useState(false);
+
+  useEffect(() => {
+    setIsTouch(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
+
   const itemVariants: Variants = {
     hidden: { opacity: 0, x: -10 },
     visible: { 
@@ -47,14 +53,14 @@ export function AcademySection() {
   };
 
   return (
-    <section className="w-full max-w-[1400px] mx-auto px-6 py-24 border-t border-zinc-800/40" id="academy">
+    <section className="w-full max-w-[1400px] mx-auto px-6 py-24 border-t border-zinc-800/40 text-left" id="academy">
       <div className="flex flex-col gap-12 text-left">
         {/* Header */}
-        <div className="flex flex-col gap-2">
-          <span className="font-mono text-[9px] text-accent-cyan/50 tracking-[0.5em] uppercase flex items-center gap-2">
+        <div className="flex flex-col gap-2 text-left">
+          <span className="font-mono text-[9px] text-accent-cyan/50 tracking-[0.5em] uppercase flex items-center gap-2 text-left">
             <GraduationCap className="w-3 h-3" /> ACADEMIC_CREDENTIALS_V4
           </span>
-          <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-100 uppercase">THE_ACADEMY</h2>
+          <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-100 uppercase text-left">THE_ACADEMY</h2>
         </div>
 
         {/* Education List */}
