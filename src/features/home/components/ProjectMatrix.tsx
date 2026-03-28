@@ -1,10 +1,14 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
 import Link from "next/link";
 import { ExternalLink, Calendar, Layout, Smartphone, Globe } from "lucide-react";
-import { motion, useMotionValue, useSpring, useTransform, Variants } from "motion/react";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { cn } from "@/lib/utils";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface ProjectCardProps {
   id: string;
@@ -75,7 +79,7 @@ function ProjectCard({
         rotateY: isTouch ? 0 : rotateY,
         transformStyle: "preserve-3d",
       } as any}
-      className="group relative border border-zinc-800/40 bg-[#0c0d14]/40 p-6 sm:p-8 hover:border-accent-cyan/40 transition-colors flex flex-col justify-between min-h-[420px] overflow-hidden rounded-none"
+      className="project-card group relative border border-zinc-800/40 bg-[#0c0d14]/40 p-6 sm:p-8 hover:border-accent-cyan/40 transition-colors flex flex-col justify-between min-h-[420px] overflow-hidden rounded-none opacity-0"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_var(--mouse-x)_var(--mouse-y),rgba(137,180,250,0.03)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
       <div className="absolute inset-0 bg-grid-24 opacity-[0.015] pointer-events-none" />
@@ -91,7 +95,7 @@ function ProjectCard({
           <div className="flex items-center gap-2">
             <span>PRJ_{id}</span>
             <span className="text-zinc-800">{`//`}</span>
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-1.5 text-left">
               <Calendar className="w-2.5 h-2.5" />
               {date}
             </span>
@@ -123,7 +127,7 @@ function ProjectCard({
             {features.map((f, i) => (
               <li key={i} className="flex items-start gap-2.5 text-left">
                 <span className="text-accent-cyan/30 font-bold shrink-0">{">"}</span> 
-                <span className="line-clamp-1">{f}</span>
+                <span className="line-clamp-1 text-left">{f}</span>
               </li>
             ))}
           </ul>
@@ -133,16 +137,14 @@ function ProjectCard({
       <div className="mt-8 sm:mt-10 relative z-10 text-left min-h-[40px] flex flex-col justify-end gap-6">
         {progress !== undefined && (
           <div className="font-mono text-[8px] sm:text-[9px] text-zinc-600 uppercase tracking-[0.3em] w-full">
-            <div className="flex justify-between mb-2 sm:mb-2.5">
+            <div className="flex justify-between mb-2 sm:mb-2.5 text-left">
               <span>STATUS: IN_PHASE</span>
               <span className="text-accent-cyan font-bold">{progress}%</span>
             </div>
             <div className="h-[2px] w-full bg-zinc-800/30 rounded-none overflow-hidden border border-zinc-800/20">
-              <motion.div 
-                initial={{ width: 0 }}
-                whileInView={{ width: `${progress}%` }}
-                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] as any }}
-                className="h-full bg-accent-cyan shadow-[0_0_10px_rgba(137,180,250,0.3)]" 
+              <div 
+                style={{ width: `${progress}%` }}
+                className="h-full bg-accent-cyan shadow-[0_0_10px_rgba(137,180,250,0.3)] transition-all duration-1000 ease-out" 
               />
             </div>
           </div>
@@ -154,11 +156,11 @@ function ProjectCard({
             rel="noreferrer"
             className="inline-flex items-center gap-2.5 font-mono text-[9px] sm:text-[10px] text-accent-cyan/80 tracking-[0.3em] hover:text-white transition-colors uppercase group/btn w-fit"
           >
-            <span className="border-b border-accent-cyan/20 group-hover/btn:border-white pb-0.5 transition-colors">EXECUTE_VIEW</span>
+            <span className="border-b border-accent-cyan/20 group-hover/btn:border-white pb-0.5 transition-colors uppercase text-left">EXECUTE_VIEW</span>
             <ExternalLink className="w-3.5 h-3.5" />
           </Link>
         ) : (
-          <div className="h-[14px]" /> // Maintain spacing
+          <div className="h-[14px]" /> 
         )}
       </div>
     </motion.div>
@@ -166,21 +168,36 @@ function ProjectCard({
 }
 
 export function ProjectMatrix() {
-  const container: Variants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
-    }
-  };
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const item: Variants = {
-    hidden: { opacity: 0, y: 15 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
-  };
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".project-card",
+        { 
+          y: 30, 
+          opacity: 0 
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 80%",
+            once: true,
+          },
+        }
+      );
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section className="w-full max-w-[1400px] mx-auto px-6 py-20 sm:py-32 text-left" id="projects">
+    <section ref={containerRef} className="w-full max-w-[1400px] mx-auto px-6 py-20 sm:py-32 text-left" id="projects">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-zinc-800/40 pb-6 mb-12 sm:mb-16 gap-4 text-left">
         <div className="flex flex-col gap-2 text-left">
           <span className="font-mono text-[8px] sm:text-[9px] text-accent-cyan/50 tracking-[0.5em] uppercase flex items-center gap-2 text-left">
@@ -193,174 +210,150 @@ export function ProjectMatrix() {
         </div>
       </div>
 
-      <motion.div 
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-100px" }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-      >
-        <motion.div variants={item}>
-          <ProjectCard 
-            id="01"
-            title="ULTRA_CONTROLE"
-            subtitle="INSPECTION_SYSTEM"
-            date="2024_OCT_FEB"
-            tag="INTERNSHIP"
-            href="https://ultracontrole.ma/fr"
-            description="Enterprise solution for automobile technical inspections. Developed a multi-language platform (MA/FR) with a specialized dashboard for appointment management and technical visit monitoring."
-            features={[
-              "MULTI_LANGUAGE_UI_ARCHITECTURE",
-              "TECHNICAL_VISIT_ORCHESTRATION",
-              "REALTIME_APPOINTMENT_LOGIC",
-              "NEXTJS_SHADCN_TAILWIND_V4"
-            ]}
-          />
-        </motion.div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 text-left">
+        <ProjectCard 
+          id="01"
+          title="ULTRA_CONTROLE"
+          subtitle="INSPECTION_SYSTEM"
+          date="2024_OCT_FEB"
+          tag="INTERNSHIP"
+          href="https://ultracontrole.ma/fr"
+          description="Enterprise solution for automobile technical inspections. Developed a multi-language platform (MA/FR) with a specialized dashboard for appointment management and technical visit monitoring."
+          features={[
+            "MULTI_LANGUAGE_UI_ARCHITECTURE",
+            "TECHNICAL_VISIT_ORCHESTRATION",
+            "REALTIME_APPOINTMENT_LOGIC",
+            "NEXTJS_SHADCN_TAILWIND_V4"
+          ]}
+        />
 
-        <motion.div variants={item}>
-          <ProjectCard 
-            id="02"
-            title="SAVOR_SCAN"
-            subtitle="RESTAURANT_SAAS"
-            date="2024_ACTIVE"
-            tag="WEB_APP"
-            href="https://savor-scan.vercel.app/en/"
-            description="Digital QR-code menu engine for the modern hospitality industry. Allows customers to browse menus instantly while providing owners with a robust management dashboard."
-            features={[
-              "QR_CODE_DYNAMIC_ROUTING",
-              "MENU_MANAGEMENT_INTERFACE",
-              "INTERACTIVE_USER_UX",
-              "DEPLOYED_VIA_VERCEL_EDGE"
-            ]}
-          />
-        </motion.div>
+        <ProjectCard 
+          id="02"
+          title="SAVOR_SCAN"
+          subtitle="RESTAURANT_SAAS"
+          date="2024_ACTIVE"
+          tag="WEB_APP"
+          href="https://savor-scan.vercel.app/en/"
+          description="Digital QR-code menu engine for the modern hospitality industry. Allows customers to browse menus instantly while providing owners with a robust management dashboard."
+          features={[
+            "QR_CODE_DYNAMIC_ROUTING",
+            "MENU_MANAGEMENT_INTERFACE",
+            "INTERACTIVE_USER_UX",
+            "DEPLOYED_VIA_VERCEL_EDGE"
+          ]}
+        />
 
-        <motion.div variants={item}>
-          <ProjectCard 
-            id="03"
-            title="FASGO_PLATFORM"
-            subtitle="INTERNAL_BACKOFFICE"
-            date="2025_DEVELOPMENT"
-            tag="COMPANY_PROJECT"
-            description="High-performance administrative portal built to orchestrate complex internal business operations and logistics with real-time data filtering and industrial-grade security."
-            features={[
-              "TEAM_LEAD_COORDINATION",
-              "ADVANCED_DATA_VISUALIZATION",
-              "CLOUDFLARE_PROTECTED_EDGE",
-              "STRICT_TYPESCRIPT_SCHEMA"
-            ]}
-          />
-        </motion.div>
+        <ProjectCard 
+          id="03"
+          title="FASGO_PLATFORM"
+          subtitle="INTERNAL_BACKOFFICE"
+          date="2025_DEVELOPMENT"
+          tag="COMPANY_PROJECT"
+          description="High-performance administrative portal built to orchestrate complex internal business operations and logistics with real-time data filtering and industrial-grade security."
+          features={[
+            "TEAM_LEAD_COORDINATION",
+            "ADVANCED_DATA_VISUALIZATION",
+            "CLOUDFLARE_PROTECTED_EDGE",
+            "STRICT_TYPESCRIPT_SCHEMA"
+          ]}
+        />
 
-        <motion.div variants={item}>
-          <ProjectCard 
-            id="04"
-            title="POSTULY_ENGINE"
-            subtitle="HR_WORKFLOW_SAAS"
-            date="2025_DEVELOPMENT"
-            tag="COMPANY_PROJECT"
-            progress={65}
-            description="Automated recruitment platform designed to streamline high-volume hiring processes. Optimizes candidate screening through intelligent filtering and collaborative workflow tools."
-            features={[
-              "FRONTEND_LEAD_ARCHITECTURE",
-              "RECRUITMENT_PHASE_SYNC",
-              "UI_SYSTEM_OPTIMIZATION",
-              "DOCKER_READY_ENVIRONMENT"
-            ]}
-          />
-        </motion.div>
+        <ProjectCard 
+          id="04"
+          title="POSTULY_ENGINE"
+          subtitle="HR_WORKFLOW_SAAS"
+          date="2025_DEVELOPMENT"
+          tag="COMPANY_PROJECT"
+          progress={65}
+          description="Automated recruitment platform designed to streamline high-volume hiring processes. Optimizes candidate screening through intelligent filtering and collaborative workflow tools."
+          features={[
+            "FRONTEND_LEAD_ARCHITECTURE",
+            "RECRUITMENT_PHASE_SYNC",
+            "UI_SYSTEM_OPTIMIZATION",
+            "DOCKER_READY_ENVIRONMENT"
+          ]}
+        />
 
-        <motion.div variants={item}>
-          <ProjectCard 
-            id="05"
-            title="SWIFTSHOE"
-            subtitle="ECOMMERCE_SYSTEM"
-            date="AUG_2024_OCT_2024"
-            tag="MOBILE_APP"
-            href="https://github.com/nightfall-storm/SwiftShoe"
-            description="Complete mobile e-commerce ecosystem for footwear. Features secure user authentication, real-time product catalogs, and a streamlined mobile checkout experience."
-            features={[
-              "FLUTTER_GETX_FRAMEWORK",
-              "FIREBASE_SECURE_AUTH",
-              "MVVM_ARCHITECTURAL_PATTERN",
-              "CLOUD_FIRESTORE_SYNC"
-            ]}
-          />
-        </motion.div>
+        <ProjectCard 
+          id="05"
+          title="SWIFTSHOE"
+          subtitle="ECOMMERCE_SYSTEM"
+          date="AUG_2024_OCT_2024"
+          tag="MOBILE_APP"
+          href="https://github.com/nightfall-storm/SwiftShoe"
+          description="Complete mobile e-commerce ecosystem for footwear. Features secure user authentication, real-time product catalogs, and a streamlined mobile checkout experience."
+          features={[
+            "FLUTTER_GETX_FRAMEWORK",
+            "FIREBASE_SECURE_AUTH",
+            "MVVM_ARCHITECTURAL_PATTERN",
+            "CLOUD_FIRESTORE_SYNC"
+          ]}
+        />
 
-        <motion.div variants={item}>
-          <ProjectCard 
-            id="06"
-            title="LIGHTTASKS"
-            subtitle="UX_PRODUCTIVITY"
-            date="JUL_2024_AUG_2024"
-            tag="MOBILE_APP"
-            href="https://github.com/nightfall-storm/LightTasks"
-            description="Intuitive task management application built with a focus on simplicity and user experience. Provides offline-first capabilities with reliable local data persistence."
-            features={[
-              "FLUTTER_DART_UI_ENGINE",
-              "HIVE_OFFLINE_DATABASE",
-              "CLEAN_UI_UX_PRINCIPLES",
-              "PRODUCTIVITY_SYNC_LOGIC"
-            ]}
-          />
-        </motion.div>
+        <ProjectCard 
+          id="06"
+          title="LIGHTTASKS"
+          subtitle="UX_PRODUCTIVITY"
+          date="JUL_2024_AUG_2024"
+          tag="MOBILE_APP"
+          href="https://github.com/nightfall-storm/LightTasks"
+          description="Intuitive task management application built with a focus on simplicity and user experience. Provides offline-first capabilities with reliable local data persistence."
+          features={[
+            "FLUTTER_DART_UI_ENGINE",
+            "HIVE_OFFLINE_DATABASE",
+            "CLEAN_UI_UX_PRINCIPLES",
+            "PRODUCTIVITY_SYNC_LOGIC"
+          ]}
+        />
 
-        <motion.div variants={item}>
-          <ProjectCard 
-            id="07"
-            title="REG_DASHBOARD"
-            subtitle="DATA_SUPERVISION"
-            date="APR_2024_MAY_2024"
-            tag="PHP_DASHBOARD"
-            href="https://github.com/nightfall-storm/Gestion-inscription"
-            description="Secure administrative portal for user registration and academic supervision. Designed to provide clear data oversight and role-based access control for institutional use."
-            features={[
-              "PHP_MYSQL_SECURE_KERNEL",
-              "ROLE_BASED_PERMISSIONS",
-              "JQUERY_DATA_INTERACTION",
-              "MANAGEMENT_LOG_SYSTEM"
-            ]}
-          />
-        </motion.div>
+        <ProjectCard 
+          id="07"
+          title="REG_DASHBOARD"
+          subtitle="DATA_SUPERVISION"
+          date="APR_2024_MAY_2024"
+          tag="PHP_DASHBOARD"
+          href="https://github.com/nightfall-storm/Gestion-inscription"
+          description="Secure administrative portal for user registration and academic supervision. Designed to provide clear data oversight and role-based access control for institutional use."
+          features={[
+            "PHP_MYSQL_SECURE_KERNEL",
+            "ROLE_BASED_PERMISSIONS",
+            "JQUERY_DATA_INTERACTION",
+            "MANAGEMENT_LOG_SYSTEM"
+          ]}
+        />
 
-        <motion.div variants={item}>
-          <ProjectCard 
-            id="08"
-            title="MOBILE_SUITE"
-            subtitle="ANDROID_UTILITIES"
-            date="SEP_2023_MAR_2024"
-            tag="MOBILE_APP"
-            href="https://github.com/nightfall-storm/WeatherApp"
-            description="A collection of native Android applications showcasing mobile engineering fundamentals, including real-time weather integration and food ordering systems."
-            features={[
-              "KOTLIN_JAVA_NATIVE_DEV",
-              "REST_API_CONSUMPTION",
-              "FRAGMENT_BASED_LAYOUTS",
-              "STABLE_RELEASE_VERSION"
-            ]}
-          />
-        </motion.div>
+        <ProjectCard 
+          id="08"
+          title="MOBILE_SUITE"
+          subtitle="ANDROID_UTILITIES"
+          date="SEP_2023_MAR_2024"
+          tag="MOBILE_APP"
+          href="https://github.com/nightfall-storm/WeatherApp"
+          description="A collection of native Android applications showcasing mobile engineering fundamentals, including real-time weather integration and food ordering systems."
+          features={[
+            "KOTLIN_JAVA_NATIVE_DEV",
+            "REST_API_CONSUMPTION",
+            "FRAGMENT_BASED_LAYOUTS",
+            "STABLE_RELEASE_VERSION"
+          ]}
+        />
 
-        <motion.div variants={item}>
-          <ProjectCard 
-            id="09"
-            title="UTILITY_LABS"
-            subtitle="MICRO_APPLICATIONS"
-            date="2024_COLLECTION"
-            tag="MOBILE_APPS"
-            href="https://github.com/nightfall-storm/TipCalculatorApp"
-            description="Suite of focused mobile utilities including specialized calculators and notification schedulers built to solve specific daily tasks with efficient code."
-            features={[
-              "NOTIFICATION_ORCHESTRATOR",
-              "LOGIC_DRIVEN_CALCULATORS",
-              "MODULAR_SYSTEM_DESIGN",
-              "OPEN_SOURCE_REPOSITORY"
-            ]}
-          />
-        </motion.div>
-      </motion.div>
+        <ProjectCard 
+          id="09"
+          title="UTILITY_LABS"
+          subtitle="MICRO_APPLICATIONS"
+          date="2024_COLLECTION"
+          tag="MOBILE_APPS"
+          href="https://github.com/nightfall-storm/TipCalculatorApp"
+          description="Suite of focused mobile utilities including specialized calculators and notification schedulers built to solve specific daily tasks with efficient code."
+          features={[
+            "NOTIFICATION_ORCHESTRATOR",
+            "LOGIC_DRIVEN_CALCULATORS",
+            "MODULAR_SYSTEM_DESIGN",
+            "OPEN_SOURCE_REPOSITORY"
+          ]}
+        />
+      </div>
     </section>
   );
 }
