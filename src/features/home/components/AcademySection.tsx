@@ -14,21 +14,21 @@ interface EducationEntry {
 
 const EDUCATION: EducationEntry[] = [
   {
-    degree: "MASTER_IN_SOFTWARE_ENGINEERING_&_WEB_APPLICATIONS",
+    degree: "MASTER IN SOFTWARE ENGINEERING & WEB APPLICATIONS",
     institution: "ENSI - STATE-RECOGNIZED",
     location: "TANGIER, MOROCCO",
     date: "NOV_2025_PRESENT",
     status: "ACTIVE_RESEARCH"
   },
   {
-    degree: "BACHELOR'S_DEGREE_IN_SOFTWARE_ENGINEERING",
+    degree: "BACHELOR'S DEGREE IN SOFTWARE ENGINEERING",
     institution: "FEDE",
     location: "TANGIER, MOROCCO",
     date: "SEP_2024_OCT_2025",
     status: "GRADUATED"
   },
   {
-    degree: "DTS_SPECIALIZED_TECHNICIAN_DIPLOMA",
+    degree: "DTS SPECIALIZED TECHNICIAN DIPLOMA",
     institution: "ISMONTIC",
     location: "TANGIER, MOROCCO",
     date: "SEP_2022_JUL_2024",
@@ -66,13 +66,13 @@ export function AcademySection() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="group border border-zinc-800/40 bg-zinc-900/10 p-8 hover:border-accent-cyan/20 transition-all text-left"
+              className="group border border-zinc-800/40 bg-zinc-900/10 p-6 sm:p-8 hover:border-accent-cyan/20 transition-all text-left"
             >
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 items-start text-left">
-                <div className="space-y-4 text-left">
+                <div className="space-y-4 text-left min-w-0">
                   <div className="flex flex-col gap-1 text-left">
                     <span className="font-mono text-[10px] text-zinc-600 tracking-[0.3em] uppercase text-left">{edu.institution}</span>
-                    <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-100 uppercase leading-tight group-hover:text-accent-cyan transition-colors text-left">
+                    <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-100 uppercase leading-tight group-hover:text-accent-cyan transition-colors text-left break-words overflow-hidden">
                       {edu.degree}
                     </h3>
                   </div>
@@ -93,7 +93,7 @@ export function AcademySection() {
                   </div>
                 </div>
 
-                <div className="hidden lg:flex flex-col items-end gap-2 text-right">
+                <div className="hidden lg:flex flex-col items-end gap-2 text-right shrink-0">
                   <div className="w-12 h-[0.5px] bg-zinc-800" />
                   <span className="font-mono text-[8px] text-zinc-700 tracking-[0.4em] uppercase">LEVEL_SYNCED</span>
                 </div>
