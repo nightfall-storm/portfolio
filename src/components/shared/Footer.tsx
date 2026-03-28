@@ -7,7 +7,7 @@ export function Footer() {
         {/* Left */}
         <div className="flex items-center gap-3">
           <div className="w-1.5 h-1.5 bg-accent-cyan/40" />
-          <span>SOFTWARE_ENGINEER // BILAL_NNASSER [v2.5.0]</span>
+          <span>LEAD_FRONTEND_ENGINEER // BILAL_NNASSER [v2.5.0]</span>
         </div>
 
         {/* Center Links */}
