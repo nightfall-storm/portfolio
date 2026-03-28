@@ -120,7 +120,7 @@ export function ContactSection() {
           </div>
 
           <p className="font-mono text-[10px] sm:text-[11px] text-zinc-500 leading-relaxed max-w-md mb-12 sm:mb-20 uppercase tracking-widest text-left">
-            Currently open for architectural audits, custom engineering contracts, and high-impact infrastructure partnerships.
+            Currently open for freelance projects, custom engineering contracts, and high-impact professional opportunities.
             <br /><br />
             LOC: TANGIER_MAR <span className="text-zinc-800 mx-2">{`//`}</span> TZ: GMT+1
           </p>
@@ -134,7 +134,7 @@ export function ContactSection() {
                     <div className="w-8 h-8 sm:w-9 sm:h-9 border border-zinc-800/60 flex items-center justify-center group-hover:border-accent-cyan/40 transition-colors rounded-none bg-zinc-900/20 text-left">
                       <item.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-zinc-600 group-hover:text-accent-cyan/80 transition-colors" />
                     </div>
-                    <span className="font-mono text-[9px] sm:text-[10px] text-zinc-500 group-hover:text-white transition-colors tracking-[0.15em] sm:tracking-[0.2em] break-all text-left">{item.label}</span>
+                    <span className="font-mono text-[9px] sm:text-[10px] text-zinc-500 group-hover:text-white transition-colors tracking-[0.15em] sm:tracking-[0.2em] break-all text-left uppercase">{item.label}</span>
                   </a>
                 ))}
               </div>
@@ -173,7 +173,7 @@ export function ContactSection() {
                 </label>
                 <textarea 
                   rows={5}
-                  placeholder="DESCRIBE_ARCHITECTURE_NEEDS..."
+                  placeholder="DESCRIBE_PROJECT_OR_OPPORTUNITY..."
                   className="bg-transparent border-none outline-none font-mono text-[11px] text-zinc-300 placeholder:text-zinc-800 tracking-widest uppercase resize-none h-32 sm:h-36 text-left"
                 />
               </div>

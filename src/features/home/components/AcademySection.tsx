@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { motion, Variants } from "motion/react";
 import { GraduationCap, MapPin, Calendar, BookOpen } from "lucide-react";
 
@@ -37,12 +37,6 @@ const EDUCATION: EducationEntry[] = [
 ];
 
 export function AcademySection() {
-  const [isTouch, setIsTouch] = useState(false);
-
-  useEffect(() => {
-    setIsTouch(window.matchMedia("(pointer: coarse)").matches);
-  }, []);
-
   const itemVariants: Variants = {
     hidden: { opacity: 0, x: -10 },
     visible: { 
