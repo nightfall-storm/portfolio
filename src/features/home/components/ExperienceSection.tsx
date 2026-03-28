@@ -18,14 +18,14 @@ interface ExperienceCardProps {
   isLead?: boolean;
 }
 
-function ExperienceCard({ 
-  id, 
-  title, 
+function ExperienceCard({
+  id,
+  title,
   subtitle,
   date,
-  highlights, 
+  highlights,
   badge,
-  isLead
+  isLead,
 }: ExperienceCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isTouch, setIsTouch] = useState(false);
@@ -33,7 +33,7 @@ function ExperienceCard({
   useEffect(() => {
     setIsTouch(window.matchMedia("(pointer: coarse)").matches);
   }, []);
-  
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -50,8 +50,8 @@ function ExperienceCard({
     const height = rect.height;
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
-    const xPct = (mouseX / width) - 0.5;
-    const yPct = (mouseY / height) - 0.5;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
     x.set(xPct);
     y.set(yPct);
   };
@@ -70,7 +70,7 @@ function ExperienceCard({
         rotateX: isTouch ? 0 : rotateX,
         rotateY: isTouch ? 0 : rotateY,
         transformStyle: "preserve-3d",
-      } as any}
+      }}
       className="experience-card group relative border border-zinc-800/40 bg-[#0c0d14]/40 p-8 hover:border-accent-cyan/40 transition-colors flex flex-col justify-between min-h-[320px] overflow-hidden rounded-none opacity-0"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_var(--mouse-x)_var(--mouse-y),rgba(137,180,250,0.02)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
@@ -88,7 +88,7 @@ function ExperienceCard({
           </div>
           {badge}
         </div>
-        
+
         <div className="mb-6 text-left">
           <h3 className="text-2xl font-black tracking-tighter text-zinc-100 uppercase leading-none text-left">
             {title}
@@ -102,7 +102,9 @@ function ExperienceCard({
         <ul className="text-[10px] sm:text-[11px] text-zinc-500 font-mono leading-relaxed space-y-3 uppercase tracking-tight text-left">
           {highlights.map((h, i) => (
             <li key={i} className="flex items-start gap-3 text-left">
-              <span className="text-accent-cyan/30 font-bold shrink-0">{">"}</span> 
+              <span className="text-accent-cyan/30 font-bold shrink-0">
+                {">"}
+              </span>
               <span className="text-balance text-left">{h}</span>
             </li>
           ))}
@@ -132,9 +134,9 @@ export function ExperienceSection() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         ".experience-card",
-        { 
-          y: 30, 
-          opacity: 0 
+        {
+          y: 30,
+          opacity: 0,
         },
         {
           y: 0,
@@ -147,7 +149,7 @@ export function ExperienceSection() {
             start: "top 80%",
             once: true,
           },
-        }
+        },
       );
     }, containerRef);
 
@@ -155,22 +157,29 @@ export function ExperienceSection() {
   }, []);
 
   return (
-    <section ref={containerRef} className="w-full max-w-[1400px] mx-auto px-6 py-24 sm:py-32" id="experience">
+    <section
+      ref={containerRef}
+      className="w-full max-w-[1400px] mx-auto px-6 py-24 sm:py-32"
+      id="experience"
+    >
       <div className="flex flex-col gap-12 text-left">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-zinc-800/40 pb-6 mb-4 gap-4 text-left">
           <div className="flex flex-col gap-2 text-left">
             <span className="font-mono text-[8px] sm:text-[9px] text-accent-cyan/50 tracking-[0.5em] uppercase flex items-center gap-2 text-left">
               <Terminal className="w-3 h-3" /> PROFESSIONAL_LOG_V2.5
             </span>
-            <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-100 uppercase text-left">EXPERIENCE_PRO</h2>
+            <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-100 uppercase text-left">
+              EXPERIENCE_PRO
+            </h2>
           </div>
           <div className="font-mono text-[8px] sm:text-[9px] text-zinc-600 tracking-[0.4em] uppercase text-left">
-            STABLE_RELEASE <span className="text-zinc-800 mx-3">{`//`}</span> STATUS: ACTIVE
+            STABLE_RELEASE <span className="text-zinc-800 mx-3">{`//`}</span>{" "}
+            STATUS: ACTIVE
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
-          <ExperienceCard 
+          <ExperienceCard
             id="01"
             title="LOGICIEL_LAB"
             subtitle="SOFTWARE_ENGINEER"
@@ -186,11 +195,11 @@ export function ExperienceSection() {
               "DRIVE_FRONTEND_DEV_FASGO_POSTULY",
               "TECHNICAL_OPS_CI_CD_CLOUDFLARE",
               "MENTOR_DEVELOPERS_LIFECYCLE_MGMT",
-              "ARCHITECT_UI_SYSTEMS_HIGH_STANDARDS"
+              "ARCHITECT_UI_SYSTEMS_HIGH_STANDARDS",
             ]}
           />
 
-          <ExperienceCard 
+          <ExperienceCard
             id="02"
             title="MEDIACARIS"
             subtitle="SOFTWARE_ENGINEER_INTERN"
@@ -199,11 +208,11 @@ export function ExperienceSection() {
               "DEV_ULTRACONTROLE_MA_FR_SYSTEM",
               "AUTOMOBILE_VISIT_TECHNICAL_DASH",
               "APPOINTMENT_MGMT_ORCHESTRATOR",
-              "MULTI_LANGUAGE_UI_ARCHITECTURE"
+              "MULTI_LANGUAGE_UI_ARCHITECTURE",
             ]}
           />
 
-          <ExperienceCard 
+          <ExperienceCard
             id="03"
             title="ECI_SYSTEMS"
             subtitle="WEB_DEV_INTERN"
@@ -212,7 +221,7 @@ export function ExperienceSection() {
               "ASP.NET_CORE_ENTITY_FW_CRUD",
               "AUTH_&_SESSION_ARCHITECTURE",
               "AUTO_EMAIL_NOTIF_ENGINE",
-              "TASK_MGMT_SYSTEM_DEV"
+              "TASK_MGMT_SYSTEM_DEV",
             ]}
           />
         </div>

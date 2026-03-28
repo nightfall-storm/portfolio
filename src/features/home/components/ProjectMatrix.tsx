@@ -2,7 +2,13 @@
 
 import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
 import Link from "next/link";
-import { ExternalLink, Calendar, Layout, Smartphone, Globe } from "lucide-react";
+import {
+  ExternalLink,
+  Calendar,
+  Layout,
+  Smartphone,
+  Globe,
+} from "lucide-react";
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { cn } from "@/lib/utils";
 import { gsap } from "gsap";
@@ -23,17 +29,17 @@ interface ProjectCardProps {
   isRedacted?: boolean;
 }
 
-function ProjectCard({ 
-  id, 
-  title, 
+function ProjectCard({
+  id,
+  title,
   subtitle,
   date,
   description,
-  features, 
-  progress, 
+  features,
+  progress,
   href,
   tag,
-  isRedacted
+  isRedacted,
 }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isTouch, setIsTouch] = useState(false);
@@ -41,7 +47,7 @@ function ProjectCard({
   useEffect(() => {
     setIsTouch(window.matchMedia("(pointer: coarse)").matches);
   }, []);
-  
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -58,8 +64,8 @@ function ProjectCard({
     const height = rect.height;
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
-    const xPct = (mouseX / width) - 0.5;
-    const yPct = (mouseY / height) - 0.5;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
     x.set(xPct);
     y.set(yPct);
   };
@@ -78,7 +84,7 @@ function ProjectCard({
         rotateX: isTouch ? 0 : rotateX,
         rotateY: isTouch ? 0 : rotateY,
         transformStyle: "preserve-3d",
-      } as any}
+      }}
       className="project-card group relative border border-zinc-800/40 bg-[#0c0d14]/40 p-6 sm:p-8 hover:border-accent-cyan/40 transition-colors flex flex-col justify-between min-h-[420px] overflow-hidden rounded-none opacity-0"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_var(--mouse-x)_var(--mouse-y),rgba(137,180,250,0.03)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
@@ -86,7 +92,9 @@ function ProjectCard({
 
       {isRedacted && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.04] -rotate-12 z-0 text-center">
-          <span className="text-6xl sm:text-8xl font-black tracking-tighter text-zinc-100 uppercase font-mono">REDACTED</span>
+          <span className="text-6xl sm:text-8xl font-black tracking-tighter text-zinc-100 uppercase font-mono">
+            REDACTED
+          </span>
         </div>
       )}
 
@@ -104,16 +112,22 @@ function ProjectCard({
             {tag}
           </div>
         </div>
-        
+
         <div className="mb-4">
-          <h3 className={cn(
-            "text-xl sm:text-2xl font-black tracking-tighter uppercase leading-none",
-            isRedacted ? "text-zinc-600" : "text-zinc-100"
-          )}>
+          <h3
+            className={cn(
+              "text-xl sm:text-2xl font-black tracking-tighter uppercase leading-none",
+              isRedacted ? "text-zinc-600" : "text-zinc-100",
+            )}
+          >
             {title}
           </h3>
           <div className="text-accent-cyan/60 font-mono text-[9px] tracking-[0.2em] mt-1 uppercase flex items-center gap-2 text-left">
-            {tag.includes("MOBILE") ? <Smartphone className="w-3 h-3" /> : <Globe className="w-3 h-3" />}
+            {tag.includes("MOBILE") ? (
+              <Smartphone className="w-3 h-3" />
+            ) : (
+              <Globe className="w-3 h-3" />
+            )}
             {subtitle}
           </div>
         </div>
@@ -126,7 +140,9 @@ function ProjectCard({
           <ul className="text-[9px] text-zinc-500 font-mono leading-relaxed space-y-1.5 uppercase tracking-tight text-left border-t border-zinc-800/40 pt-4">
             {features.map((f, i) => (
               <li key={i} className="flex items-start gap-2.5 text-left">
-                <span className="text-accent-cyan/30 font-bold shrink-0">{">"}</span> 
+                <span className="text-accent-cyan/30 font-bold shrink-0">
+                  {">"}
+                </span>
                 <span className="line-clamp-1 text-left">{f}</span>
               </li>
             ))}
@@ -142,25 +158,27 @@ function ProjectCard({
               <span className="text-accent-cyan font-bold">{progress}%</span>
             </div>
             <div className="h-[2px] w-full bg-zinc-800/30 rounded-none overflow-hidden border border-zinc-800/20">
-              <div 
+              <div
                 style={{ width: `${progress}%` }}
-                className="h-full bg-accent-cyan shadow-[0_0_10px_rgba(137,180,250,0.3)] transition-all duration-1000 ease-out" 
+                className="h-full bg-accent-cyan shadow-[0_0_10px_rgba(137,180,250,0.3)] transition-all duration-1000 ease-out"
               />
             </div>
           </div>
         )}
         {href && href !== "#" ? (
-          <Link 
-            href={href} 
+          <Link
+            href={href}
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-2.5 font-mono text-[9px] sm:text-[10px] text-accent-cyan/80 tracking-[0.3em] hover:text-white transition-colors uppercase group/btn w-fit"
           >
-            <span className="border-b border-accent-cyan/20 group-hover/btn:border-white pb-0.5 transition-colors uppercase text-left">EXECUTE_VIEW</span>
+            <span className="border-b border-accent-cyan/20 group-hover/btn:border-white pb-0.5 transition-colors uppercase text-left">
+              EXECUTE_VIEW
+            </span>
             <ExternalLink className="w-3.5 h-3.5" />
           </Link>
         ) : (
-          <div className="h-[14px]" /> 
+          <div className="h-[14px]" />
         )}
       </div>
     </motion.div>
@@ -174,9 +192,9 @@ export function ProjectMatrix() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         ".project-card",
-        { 
-          y: 30, 
-          opacity: 0 
+        {
+          y: 30,
+          opacity: 0,
         },
         {
           y: 0,
@@ -189,7 +207,7 @@ export function ProjectMatrix() {
             start: "top 80%",
             once: true,
           },
-        }
+        },
       );
     }, containerRef);
 
@@ -197,21 +215,28 @@ export function ProjectMatrix() {
   }, []);
 
   return (
-    <section ref={containerRef} className="w-full max-w-[1400px] mx-auto px-6 py-20 sm:py-32 text-left" id="projects">
+    <section
+      ref={containerRef}
+      className="w-full max-w-[1400px] mx-auto px-6 py-20 sm:py-32 text-left"
+      id="projects"
+    >
       <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-zinc-800/40 pb-6 mb-12 sm:mb-16 gap-4 text-left">
         <div className="flex flex-col gap-2 text-left">
           <span className="font-mono text-[8px] sm:text-[9px] text-accent-cyan/50 tracking-[0.5em] uppercase flex items-center gap-2 text-left">
             <Layout className="w-3.5 h-3.5" /> PROJECT_MANIFEST_V3
           </span>
-          <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-100 uppercase text-left">PROJECTS_&_LABS</h2>
+          <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-100 uppercase text-left">
+            PROJECTS_&_LABS
+          </h2>
         </div>
         <div className="font-mono text-[8px] sm:text-[9px] text-zinc-600 tracking-[0.4em] uppercase text-left">
-          STORAGE: CLOUD_SYNCED <span className="text-zinc-800 mx-3">{`//`}</span> REGISTRY: ACTIVE
+          STORAGE: CLOUD_SYNCED{" "}
+          <span className="text-zinc-800 mx-3">{`//`}</span> REGISTRY: ACTIVE
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 text-left">
-        <ProjectCard 
+        <ProjectCard
           id="01"
           title="ULTRA_CONTROLE"
           subtitle="INSPECTION_SYSTEM"
@@ -223,11 +248,11 @@ export function ProjectMatrix() {
             "MULTI_LANGUAGE_UI_ARCHITECTURE",
             "TECHNICAL_VISIT_ORCHESTRATION",
             "REALTIME_APPOINTMENT_LOGIC",
-            "NEXTJS_SHADCN_TAILWIND_V4"
+            "NEXTJS_SHADCN_TAILWIND_V4",
           ]}
         />
 
-        <ProjectCard 
+        <ProjectCard
           id="02"
           title="SAVOR_SCAN"
           subtitle="RESTAURANT_SAAS"
@@ -239,11 +264,11 @@ export function ProjectMatrix() {
             "QR_CODE_DYNAMIC_ROUTING",
             "MENU_MANAGEMENT_INTERFACE",
             "INTERACTIVE_USER_UX",
-            "DEPLOYED_VIA_VERCEL_EDGE"
+            "DEPLOYED_VIA_VERCEL_EDGE",
           ]}
         />
 
-        <ProjectCard 
+        <ProjectCard
           id="03"
           title="FASGO_PLATFORM"
           subtitle="INTERNAL_BACKOFFICE"
@@ -254,11 +279,11 @@ export function ProjectMatrix() {
             "TEAM_LEAD_COORDINATION",
             "ADVANCED_DATA_VISUALIZATION",
             "CLOUDFLARE_PROTECTED_EDGE",
-            "STRICT_TYPESCRIPT_SCHEMA"
+            "STRICT_TYPESCRIPT_SCHEMA",
           ]}
         />
 
-        <ProjectCard 
+        <ProjectCard
           id="04"
           title="POSTULY_ENGINE"
           subtitle="HR_WORKFLOW_SAAS"
@@ -270,11 +295,11 @@ export function ProjectMatrix() {
             "FRONTEND_LEAD_ARCHITECTURE",
             "RECRUITMENT_PHASE_SYNC",
             "UI_SYSTEM_OPTIMIZATION",
-            "DOCKER_READY_ENVIRONMENT"
+            "DOCKER_READY_ENVIRONMENT",
           ]}
         />
 
-        <ProjectCard 
+        <ProjectCard
           id="05"
           title="SWIFTSHOE"
           subtitle="ECOMMERCE_SYSTEM"
@@ -286,11 +311,11 @@ export function ProjectMatrix() {
             "FLUTTER_GETX_FRAMEWORK",
             "FIREBASE_SECURE_AUTH",
             "MVVM_ARCHITECTURAL_PATTERN",
-            "CLOUD_FIRESTORE_SYNC"
+            "CLOUD_FIRESTORE_SYNC",
           ]}
         />
 
-        <ProjectCard 
+        <ProjectCard
           id="06"
           title="LIGHTTASKS"
           subtitle="UX_PRODUCTIVITY"
@@ -302,11 +327,11 @@ export function ProjectMatrix() {
             "FLUTTER_DART_UI_ENGINE",
             "HIVE_OFFLINE_DATABASE",
             "CLEAN_UI_UX_PRINCIPLES",
-            "PRODUCTIVITY_SYNC_LOGIC"
+            "PRODUCTIVITY_SYNC_LOGIC",
           ]}
         />
 
-        <ProjectCard 
+        <ProjectCard
           id="07"
           title="REG_DASHBOARD"
           subtitle="DATA_SUPERVISION"
@@ -318,11 +343,11 @@ export function ProjectMatrix() {
             "PHP_MYSQL_SECURE_KERNEL",
             "ROLE_BASED_PERMISSIONS",
             "JQUERY_DATA_INTERACTION",
-            "MANAGEMENT_LOG_SYSTEM"
+            "MANAGEMENT_LOG_SYSTEM",
           ]}
         />
 
-        <ProjectCard 
+        <ProjectCard
           id="08"
           title="MOBILE_SUITE"
           subtitle="ANDROID_UTILITIES"
@@ -334,11 +359,11 @@ export function ProjectMatrix() {
             "KOTLIN_JAVA_NATIVE_DEV",
             "REST_API_CONSUMPTION",
             "FRAGMENT_BASED_LAYOUTS",
-            "STABLE_RELEASE_VERSION"
+            "STABLE_RELEASE_VERSION",
           ]}
         />
 
-        <ProjectCard 
+        <ProjectCard
           id="09"
           title="UTILITY_LABS"
           subtitle="MICRO_APPLICATIONS"
@@ -350,7 +375,7 @@ export function ProjectMatrix() {
             "NOTIFICATION_ORCHESTRATOR",
             "LOGIC_DRIVEN_CALCULATORS",
             "MODULAR_SYSTEM_DESIGN",
-            "OPEN_SOURCE_REPOSITORY"
+            "OPEN_SOURCE_REPOSITORY",
           ]}
         />
       </div>
