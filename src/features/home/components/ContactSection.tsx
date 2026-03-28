@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { motion, Variants } from "motion/react";
 import { Send, Terminal, AtSign, ExternalLink } from "lucide-react";
 

@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
+import React, { useRef, useLayoutEffect } from "react";
 import { Briefcase, Terminal } from "lucide-react";
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
+
+import { useTouch } from "../common/hooks/use-touch";
 
 interface ExperienceCardProps {
   id: string;
@@ -28,11 +30,7 @@ function ExperienceCard({
   isLead,
 }: ExperienceCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [isTouch, setIsTouch] = useState(false);
-
-  useEffect(() => {
-    setIsTouch(window.matchMedia("(pointer: coarse)").matches);
-  }, []);
+  const isTouch = useTouch();
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);

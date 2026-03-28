@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { motion } from "motion/react";
 
 const technologies = [
@@ -34,12 +33,12 @@ export function TechTicker() {
       <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none"></div>
 
       <div className="flex whitespace-nowrap">
-        <motion.div 
+        <motion.div
           animate={{ x: "-50%" }}
-          transition={{ 
-            repeat: Infinity, 
-            duration: 40, 
-            ease: "linear" 
+          transition={{
+            repeat: Infinity,
+            duration: 40,
+            ease: "linear",
           }}
           className="flex gap-16 font-mono text-[9px] sm:text-[10px] tracking-[0.2em] text-muted-foreground/60 uppercase w-max px-8"
         >
