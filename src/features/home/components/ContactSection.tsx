@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "motion/react";
+import { motion, Variants } from "motion/react";
 import { Send, Terminal, AtSign, ExternalLink } from "lucide-react";
 
 const GithubIcon = ({ className }: { className?: string }) => (
@@ -60,27 +60,58 @@ function TerminalInput({ label, placeholder, type = "text" }: TerminalInputProps
         initial={{ scaleX: 0 }}
         whileFocus={{ scaleX: 1 }}
         className="absolute bottom-[-1px] left-0 w-full h-px bg-accent-cyan origin-left opacity-60"
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as any }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] } as any}
       />
     </div>
   );
 }
 
+interface SignalEndpoint {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  href: string;
+}
+
 export function ContactSection() {
+  const signalEndpoints: SignalEndpoint[] = [
+    { icon: AtSign, label: "BILALNNASSERNF@GMAIL.COM", href: "mailto:bilalnnassernf@gmail.com" },
+    { icon: ExternalLink, label: "BILAL-NNASSER", href: "https://linkedin.com/in/bilal-nnasser" },
+    { icon: GithubIcon, label: "NIGHTFALL-STORM", href: "https://github.com/nightfall-storm" },
+    { icon: GitlabIcon, label: "NIGHTFALL-STORM", href: "https://gitlab.com/nightfall-storm" }
+  ];
+
+  const leftVariants: Variants = {
+    hidden: { opacity: 0, x: -15 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+    }
+  };
+
+  const rightVariants: Variants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+    }
+  };
+
   return (
     <section className="w-full max-w-[1400px] mx-auto px-6 py-20 sm:py-32 mb-24 lg:mb-32 text-left" id="comm">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start text-left">
         
         {/* Left Side: Text and Signal Info */}
         <motion.div 
-          initial={{ opacity: 0, x: -15 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as any }}
+          variants={leftVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
           className="text-left"
         >
-          <div className="flex flex-col gap-3 mb-10 sm:mb-12">
-            <span className="font-mono text-[9px] text-accent-cyan/50 tracking-[0.5em] uppercase flex items-center gap-3">
+          <div className="flex flex-col gap-3 mb-10 sm:mb-12 text-left">
+            <span className="font-mono text-[9px] text-accent-cyan/50 tracking-[0.5em] uppercase flex items-center gap-3 text-left">
               <Terminal className="w-3.5 h-3.5" /> UPLINK_PROTOCOL_V3
             </span>
             <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-100 uppercase text-left">
@@ -95,20 +126,15 @@ export function ContactSection() {
           </p>
 
           <div className="space-y-12 sm:space-y-16 text-left">
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-6 text-left">
               <span className="font-mono text-[9px] text-zinc-700 tracking-[0.4em] uppercase text-left">DIRECT_SIGNAL_ENDPOINTS</span>
-              <div className="grid grid-cols-1 gap-4 sm:gap-5">
-                {[
-                  { icon: AtSign, label: "BILALNNASSERNF@GMAIL.COM", href: "mailto:bilalnnassernf@gmail.com" },
-                  { icon: ExternalLink, label: "BILAL-NNASSER", href: "https://linkedin.com/in/bilal-nnasser" },
-                  { icon: GithubIcon, label: "NIGHTFALL-STORM", href: "https://github.com/nightfall-storm" },
-                  { icon: GitlabIcon, label: "NIGHTFALL-STORM", href: "https://gitlab.com/nightfall-storm" }
-                ].map((item, idx) => (
-                  <a key={idx} href={item.href} target="_blank" rel="noreferrer" className="flex items-center gap-4 sm:gap-5 group w-fit">
-                    <div className="w-8 h-8 sm:w-9 sm:h-9 border border-zinc-800/60 flex items-center justify-center group-hover:border-accent-cyan/40 transition-colors rounded-none bg-zinc-900/20">
+              <div className="grid grid-cols-1 gap-4 sm:gap-5 text-left">
+                {signalEndpoints.map((item, idx) => (
+                  <a key={idx} href={item.href} target="_blank" rel="noreferrer" className="flex items-center gap-4 sm:gap-5 group w-fit text-left">
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 border border-zinc-800/60 flex items-center justify-center group-hover:border-accent-cyan/40 transition-colors rounded-none bg-zinc-900/20 text-left">
                       <item.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-zinc-600 group-hover:text-accent-cyan/80 transition-colors" />
                     </div>
-                    <span className="font-mono text-[9px] sm:text-[10px] text-zinc-500 group-hover:text-white transition-colors tracking-[0.15em] sm:tracking-[0.2em] break-all">{item.label}</span>
+                    <span className="font-mono text-[9px] sm:text-[10px] text-zinc-500 group-hover:text-white transition-colors tracking-[0.15em] sm:tracking-[0.2em] break-all text-left">{item.label}</span>
                   </a>
                 ))}
               </div>
@@ -118,17 +144,17 @@ export function ContactSection() {
 
         {/* Right Side: Terminal Form */}
         <motion.div 
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as any }}
+          variants={rightVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
           className="relative text-left"
         >
-          <div className="border border-zinc-800/40 bg-[#0a0b10]/40 p-6 sm:p-10 relative overflow-hidden rounded-none backdrop-blur-sm">
+          <div className="border border-zinc-800/40 bg-[#0a0b10]/40 p-6 sm:p-10 relative overflow-hidden rounded-none backdrop-blur-sm text-left">
             {/* Background Grid */}
             <div className="absolute inset-0 bg-grid-24 opacity-[0.01] pointer-events-none" />
             
-            <div className="flex items-center justify-between mb-10 lg:mb-12 border-b border-zinc-800/40 pb-6">
+            <div className="flex items-center justify-between mb-10 lg:mb-12 border-b border-zinc-800/40 pb-6 text-left">
               <div className="flex gap-2 text-left">
                 <div className="w-1.5 h-1.5 rounded-none bg-zinc-800" />
                 <div className="w-1.5 h-1.5 rounded-none bg-zinc-800" />
@@ -141,7 +167,7 @@ export function ContactSection() {
               <TerminalInput label="EMAIL_RECIPIENT>" placeholder="IDENTIFIER@DOMAIN.SYS" />
               <TerminalInput label="SUBJECT_HEADER>" placeholder="PROJECT_PROPOSAL_V1" />
               <div className="group relative flex flex-col border-b border-zinc-800/40 py-6 focus-within:border-accent-cyan/40 transition-colors duration-700 text-left">
-                <label className="font-mono text-[9px] text-zinc-600 uppercase tracking-[0.3em] mb-5 flex items-center gap-3">
+                <label className="font-mono text-[9px] text-zinc-600 uppercase tracking-[0.3em] mb-5 flex items-center gap-3 text-left">
                   <span className="text-accent-cyan/60 opacity-0 group-focus-within:opacity-100 transition-opacity">{">"}</span>
                   TRANSMISSION_BODY
                 </label>
@@ -153,7 +179,7 @@ export function ContactSection() {
               </div>
             </div>
 
-            <button className="mt-10 sm:mt-12 w-full py-4 sm:py-5 border border-accent-cyan/20 bg-accent-cyan/[0.03] text-accent-cyan/80 font-mono text-[10px] tracking-[0.5em] uppercase hover:bg-accent-cyan/[0.06] hover:border-accent-cyan/40 transition-all flex items-center justify-center gap-4 group rounded-none overflow-hidden relative">
+            <button className="mt-10 sm:mt-12 w-full py-4 sm:py-5 border border-accent-cyan/20 bg-accent-cyan/[0.03] text-accent-cyan/80 font-mono text-[10px] tracking-[0.5em] uppercase hover:bg-accent-cyan/[0.06] hover:border-accent-cyan/40 transition-all flex items-center justify-center gap-4 group rounded-none overflow-hidden relative text-left">
               <div className="absolute inset-0 bg-grid-24 opacity-[0.05] pointer-events-none" />
               <span className="relative z-10">EXECUTE_TRANSMISSION</span>
               <Send className="w-3.5 h-3.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform relative z-10" />

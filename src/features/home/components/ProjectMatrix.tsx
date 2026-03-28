@@ -2,9 +2,8 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
-import { ExternalLink, Calendar, Layout } from "lucide-react";
-import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
-import { cn } from "@/lib/utils";
+import { ExternalLink, Calendar, Layout, Smartphone, Globe } from "lucide-react";
+import { motion, useMotionValue, useSpring, useTransform, Variants } from "motion/react";
 
 interface ProjectCardProps {
   id: string;
@@ -25,7 +24,7 @@ function ProjectCard({
   date,
   features, 
   progress, 
-  href = "#",
+  href,
   tag,
   isRedacted
 }: ProjectCardProps) {
@@ -33,10 +32,7 @@ function ProjectCard({
   const [isTouch, setIsTouch] = useState(false);
 
   useEffect(() => {
-    const checkTouch = () => {
-      setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0);
-    };
-    checkTouch();
+    setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0);
   }, []);
   
   const x = useMotionValue(0);
@@ -75,7 +71,7 @@ function ProjectCard({
         rotateX: isTouch ? 0 : rotateX,
         rotateY: isTouch ? 0 : rotateY,
         transformStyle: "preserve-3d",
-      }}
+      } as any}
       className="group relative border border-zinc-800/40 bg-[#0c0d14]/40 p-6 sm:p-8 hover:border-accent-cyan/40 transition-colors flex flex-col justify-between min-h-[380px] overflow-hidden rounded-none"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_var(--mouse-x)_var(--mouse-y),rgba(137,180,250,0.03)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
@@ -97,19 +93,17 @@ function ProjectCard({
               {date}
             </span>
           </div>
-          <div className="px-2 py-0.5 border border-zinc-800 bg-zinc-900/50 text-[8px]">
+          <div className="px-2 py-0.5 border border-zinc-800 bg-zinc-900/50 text-[8px] text-zinc-400">
             {tag}
           </div>
         </div>
         
         <div className="mb-4">
-          <h3 className={cn(
-            "text-xl sm:text-2xl font-black tracking-tighter uppercase leading-none text-zinc-100",
-            isRedacted ? "text-zinc-600" : "text-zinc-100"
-          )}>
+          <h3 className={`text-xl sm:text-2xl font-black tracking-tighter uppercase leading-none ${isRedacted ? "text-zinc-600" : "text-zinc-100"}`}>
             {title}
           </h3>
-          <div className="text-accent-cyan/60 font-mono text-[9px] tracking-[0.2em] mt-1 uppercase">
+          <div className="text-accent-cyan/60 font-mono text-[9px] tracking-[0.2em] mt-1 uppercase flex items-center gap-2">
+            {tag.includes("MOBILE") ? <Smartphone className="w-3 h-3" /> : <Globe className="w-3 h-3" />}
             {subtitle}
           </div>
         </div>
@@ -124,9 +118,9 @@ function ProjectCard({
         </ul>
       </div>
 
-      <div className="mt-8 sm:mt-10 relative z-10 text-left">
+      <div className="mt-8 sm:mt-10 relative z-10 text-left min-h-[40px] flex items-end">
         {progress !== undefined && (
-          <div className="font-mono text-[8px] sm:text-[9px] text-zinc-600 uppercase tracking-[0.3em] mb-6">
+          <div className="font-mono text-[8px] sm:text-[9px] text-zinc-600 uppercase tracking-[0.3em] w-full">
             <div className="flex justify-between mb-2 sm:mb-2.5">
               <span>STATUS: IN_REFACTOR</span>
               <span className="text-accent-cyan font-bold">{progress}%</span>
@@ -141,20 +135,24 @@ function ProjectCard({
             </div>
           </div>
         )}
-        <Link 
-          href={href} 
-          className="inline-flex items-center gap-2.5 font-mono text-[9px] sm:text-[10px] text-accent-cyan/80 tracking-[0.3em] hover:text-white transition-colors uppercase group/btn"
-        >
-          <span className="border-b border-accent-cyan/20 group-hover/btn:border-white pb-0.5 transition-colors">EXECUTE_VIEW</span>
-          <ExternalLink className="w-3.5 h-3.5" />
-        </Link>
+        {href && href !== "#" && (
+          <Link 
+            href={href} 
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2.5 font-mono text-[9px] sm:text-[10px] text-accent-cyan/80 tracking-[0.3em] hover:text-white transition-colors uppercase group/btn"
+          >
+            <span className="border-b border-accent-cyan/20 group-hover/btn:border-white pb-0.5 transition-colors uppercase">EXECUTE_VIEW</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </Link>
+        )}
       </div>
     </motion.div>
   );
 }
 
 export function ProjectMatrix() {
-  const container = {
+  const container: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -162,9 +160,9 @@ export function ProjectMatrix() {
     }
   };
 
-  const item = {
+  const item: Variants = {
     hidden: { opacity: 0, y: 15 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as any } }
+    show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
   };
 
   return (
@@ -191,15 +189,16 @@ export function ProjectMatrix() {
         <motion.div variants={item}>
           <ProjectCard 
             id="01"
-            title="SWIFTSHOE"
-            subtitle="MOBILE_ECOMMERCE"
-            date="AUG_2024_OCT_2024"
-            tag="SELF_PROJECT"
+            title="ULTRA_CONTROLE"
+            subtitle="AUTOMOBILE_VISIT_SYS"
+            date="2024_OCT_FEB"
+            tag="INTERNSHIP"
+            href="https://ultracontrole.ma"
             features={[
-              "FLUTTER_GETX_MVVM_ARCHITECTURE",
-              "FIREBASE_AUTH_&_FIRESTORE",
-              "REALTIME_DB_MANAGEMENT",
-              "CLOUD_STORAGE_MEDIA_HANDLING"
+              "MULTI_LANGUAGE_UI_MA_FR",
+              "TECHNICAL_VISIT_DASHBOARD",
+              "APPOINTMENT_MGMT_SYSTEM",
+              "NEXTJS_SHADCN_TAILWIND"
             ]}
           />
         </motion.div>
@@ -207,15 +206,16 @@ export function ProjectMatrix() {
         <motion.div variants={item}>
           <ProjectCard 
             id="02"
-            title="LIGHTTASKS"
-            subtitle="TASK_MANAGEMENT_APP"
-            date="JUL_2024_AUG_2024"
-            tag="SELF_PROJECT"
+            title="SAVOR_SCAN"
+            subtitle="RESTAURANT_DIGITAL_MENU"
+            date="2024_ACTIVE"
+            tag="WEB_APP"
+            href="https://savor-scan.vercel.app/en/"
             features={[
-              "FLUTTER_DART_UI_UX_FOCUSED",
-              "HIVE_LOCAL_PERSISTENCE_SYNC",
-              "CRUD_OPERATIONS_OPTIMIZED",
-              "OFFLINE_FIRST_ARCHITECTURE"
+              "DIGITAL_QR_MENU_SYSTEM",
+              "MULTI_LANGUAGE_SUPPORT",
+              "REALTIME_ORDER_READY_NOTIF",
+              "RESTAURANT_DASHBOARD_V1"
             ]}
           />
         </motion.div>
@@ -223,15 +223,15 @@ export function ProjectMatrix() {
         <motion.div variants={item}>
           <ProjectCard 
             id="03"
-            title="REG_DASHBOARD"
-            subtitle="USER_SUPERVISION_SYS"
-            date="APR_2024_MAY_2024"
-            tag="ACADEMIC"
+            title="FASGO_PLATFORM"
+            subtitle="BACKOFFICE_ORCHESTRATOR"
+            date="2025_DEVELOPMENT"
+            tag="COMPANY_PROJECT"
             features={[
-              "PHP_JS_JQUERY_MYSQL_STACK",
-              "SECURE_AUTH_LAYER_V1",
-              "DATA_MGMT_ORCHESTRATOR",
-              "ADMIN_LEVEL_SUPERVISION"
+              "NEXT.JS_16_APP_ROUTER",
+              "SHADCN_UI_CUSTOM_THEME",
+              "CI_CD_CLOUDFLARE_OPS",
+              "TEAM_LEAD_FRONTEND"
             ]}
           />
         </motion.div>
@@ -239,26 +239,10 @@ export function ProjectMatrix() {
         <motion.div variants={item}>
           <ProjectCard 
             id="04"
-            title="MOBILE_PORTFOLIO"
-            subtitle="NATIVE_ANDROID_SUITE"
-            date="SEP_2023_MAR_2024"
-            tag="ACADEMIC"
-            features={[
-              "KOTLIN_JAVA_NATIVE_DEV",
-              "REST_API_INTEGRATION_SYNC",
-              "FRAGMENTS_&_ACTIVITIES_MGMT",
-              "WEATHERAPP_PIZZAAPP_BUILDS"
-            ]}
-          />
-        </motion.div>
-
-        <motion.div variants={item}>
-          <ProjectCard 
-            id="05"
             title="POSTULY_SAAS"
             subtitle="RECRUITMENT_ENGINE"
             date="2025_DEVELOPMENT"
-            tag="LOGICIEL_LAB"
+            tag="COMPANY_PROJECT"
             progress={65}
             features={[
               "SCALABLE_UI_ARCHITECTURE",
@@ -271,16 +255,85 @@ export function ProjectMatrix() {
 
         <motion.div variants={item}>
           <ProjectCard 
-            id="06"
-            title="FASGO_PLATFORM"
-            subtitle="BACKOFFICE_ORCHESTRATOR"
-            date="2025_DEVELOPMENT"
-            tag="LOGICIEL_LAB"
+            id="05"
+            title="SWIFTSHOE"
+            subtitle="MOBILE_ECOMMERCE"
+            date="AUG_2024_OCT_2024"
+            tag="MOBILE_APP"
+            href="https://github.com/nightfall-storm/SwiftShoe"
             features={[
-              "NEXT.JS_16_APP_ROUTER",
-              "SHADCN_UI_CUSTOM_THEME",
-              "CI_CD_CLOUDFLARE_OPS",
-              "TEAM_LEAD_DEVELOPMENT"
+              "FLUTTER_GETX_MVVM_ARCHITECTURE",
+              "FIREBASE_AUTH_&_FIRESTORE",
+              "REALTIME_DB_MANAGEMENT",
+              "CLOUD_STORAGE_MEDIA_HANDLING"
+            ]}
+          />
+        </motion.div>
+
+        <motion.div variants={item}>
+          <ProjectCard 
+            id="06"
+            title="LIGHTTASKS"
+            subtitle="TASK_MANAGEMENT_APP"
+            date="JUL_2024_AUG_2024"
+            tag="MOBILE_APP"
+            href="https://github.com/nightfall-storm/LightTasks"
+            features={[
+              "FLUTTER_DART_UI_UX_FOCUSED",
+              "HIVE_LOCAL_PERSISTENCE_SYNC",
+              "CRUD_OPERATIONS_OPTIMIZED",
+              "OFFLINE_FIRST_ARCHITECTURE"
+            ]}
+          />
+        </motion.div>
+
+        <motion.div variants={item}>
+          <ProjectCard 
+            id="07"
+            title="REG_DASHBOARD"
+            subtitle="USER_SUPERVISION_SYS"
+            date="APR_2024_MAY_2024"
+            tag="PHP_DASHBOARD"
+            href="https://github.com/nightfall-storm/Gestion-inscription"
+            features={[
+              "PHP_JS_JQUERY_MYSQL_STACK",
+              "SECURE_AUTH_LAYER_V1",
+              "DATA_MGMT_ORCHESTRATOR",
+              "ADMIN_LEVEL_SUPERVISION"
+            ]}
+          />
+        </motion.div>
+
+        <motion.div variants={item}>
+          <ProjectCard 
+            id="08"
+            title="MOBILE_PORTFOLIO"
+            subtitle="NATIVE_ANDROID_SUITE"
+            date="SEP_2023_MAR_2024"
+            tag="MOBILE_APP"
+            href="https://github.com/nightfall-storm/WeatherApp"
+            features={[
+              "KOTLIN_JAVA_NATIVE_DEV",
+              "REST_API_INTEGRATION_SYNC",
+              "WEATHERAPP_PIZZAAPP_BUILDS",
+              "INTENT_&_FRAGMENTS_MGMT"
+            ]}
+          />
+        </motion.div>
+
+        <motion.div variants={item}>
+          <ProjectCard 
+            id="09"
+            title="UTILITY_SYSTEMS"
+            subtitle="MICRO_APP_COLLECTION"
+            date="2024_LABS"
+            tag="MOBILE_APPS"
+            href="https://github.com/nightfall-storm/TipCalculatorApp"
+            features={[
+              "TIP_CALC_&_NOTIF_SCHEDULER",
+              "STARS_ACTORS_REGISTRY",
+              "INTENT_IMPLICITE_LOGIC",
+              "TRANSITIONS_DRAW_SYS"
             ]}
           />
         </motion.div>

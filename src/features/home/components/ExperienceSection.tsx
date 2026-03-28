@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { Briefcase, Terminal } from "lucide-react";
-import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
+import { motion, useMotionValue, useSpring, useTransform, Variants } from "motion/react";
 
 interface ExperienceCardProps {
   id: string;
@@ -27,10 +27,7 @@ function ExperienceCard({
   const [isTouch, setIsTouch] = useState(false);
 
   useEffect(() => {
-    const checkTouch = () => {
-      setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0);
-    };
-    checkTouch();
+    setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0);
   }, []);
   
   const x = useMotionValue(0);
@@ -69,7 +66,7 @@ function ExperienceCard({
         rotateX: isTouch ? 0 : rotateX,
         rotateY: isTouch ? 0 : rotateY,
         transformStyle: "preserve-3d",
-      }}
+      } as any}
       className="group relative border border-zinc-800/40 bg-[#0c0d14]/40 p-8 hover:border-accent-cyan/40 transition-colors flex flex-col justify-between min-h-[320px] overflow-hidden rounded-none"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_var(--mouse-x)_var(--mouse-y),rgba(137,180,250,0.02)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
@@ -125,7 +122,7 @@ function ExperienceCard({
 }
 
 export function ExperienceSection() {
-  const container = {
+  const container: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -133,21 +130,21 @@ export function ExperienceSection() {
     }
   };
 
-  const item = {
+  const item: Variants = {
     hidden: { opacity: 0, y: 15 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as any } }
+    show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
   };
 
   return (
     <section className="w-full max-w-[1400px] mx-auto px-6 py-24 sm:py-32" id="experience">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-zinc-800/40 pb-6 mb-16 gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-zinc-800/40 pb-6 mb-16 gap-4 text-left">
         <div className="flex flex-col gap-2">
-          <span className="font-mono text-[8px] sm:text-[9px] text-accent-cyan/50 tracking-[0.5em] uppercase flex items-center gap-2">
+          <span className="font-mono text-[8px] sm:text-[9px] text-accent-cyan/50 tracking-[0.5em] uppercase flex items-center gap-2 text-left">
             <Terminal className="w-3 h-3" /> PROFESSIONAL_LOG_V2.5
           </span>
-          <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-100 uppercase">EXPERIENCE_PRO</h2>
+          <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-100 uppercase text-left">EXPERIENCE_PRO</h2>
         </div>
-        <div className="font-mono text-[8px] sm:text-[9px] text-zinc-600 tracking-[0.4em] uppercase">
+        <div className="font-mono text-[8px] sm:text-[9px] text-zinc-600 tracking-[0.4em] uppercase text-left">
           STABLE_RELEASE <span className="text-zinc-800 mx-3">{`//`}</span> STATUS: ACTIVE
         </div>
       </div>
@@ -157,7 +154,7 @@ export function ExperienceSection() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-100px" }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left"
       >
         <motion.div variants={item}>
           <ExperienceCard 
@@ -188,10 +185,10 @@ export function ExperienceSection() {
             subtitle="FRONTEND_DEV_INTERN"
             date="OCT_2024_FEB_2025"
             highlights={[
-              "INDEPENDENT_DEV_ULTRA_CONTROLE",
-              "MULTI_LANGUAGE_SUPPORT_ENGINE",
-              "NESTJS_REST_API_INTEGRATION",
-              "OWNED_FRONTEND_VCS_CYCLE"
+              "DEV_ULTRACONTROLE_MA_FR_SYSTEM",
+              "AUTOMOBILE_VISIT_TECHNICAL_DASH",
+              "APPOINTMENT_MGMT_ORCHESTRATOR",
+              "MULTI_LANGUAGE_UI_ARCHITECTURE"
             ]}
           />
         </motion.div>
