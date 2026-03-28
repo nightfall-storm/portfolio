@@ -18,19 +18,47 @@ gsap.registerPlugin(ScrollTrigger);
 
 import { useTouch } from "../common/hooks/use-touch";
 
+/**
+ * Properties for the `ProjectCard` component.
+ */
 interface ProjectCardProps {
+  /** Unique project identifier (e.g., "01"). */
   id: string;
+  /** Main project name. */
   title: string;
+  /** Project category or tagline. */
   subtitle: string;
+  /** Timeline of development. */
   date: string;
+  /** High-level overview of the project. */
   description: string;
+  /** List of key technical features. */
   features?: string[];
+  /** Completion percentage (for active projects). */
   progress?: number;
+  /** External link to the project or repository. */
   href?: string;
+  /** Project classification (e.g., "WEB_APP", "MOBILE_APP"). */
   tag: string;
+  /** Flag to visually "redact" sensitive projects. */
   isRedacted?: boolean;
 }
 
+/**
+ * `ProjectCard` component for showcasing individual portfolio projects.
+ * 
+ * Implements a technical, data-centric design with hover-triggered 3D tilt and interactive elements.
+ * 
+ * @architectural_decision
+ * - Uses `framer-motion` for the 3D tilt effect (`rotateX`, `rotateY`) and smooth state transitions.
+ * - Integrates `lucide-react` for iconography, dynamically choosing icons based on project tags.
+ * - Features a `REDACTED` overlay for projects with restricted visibility, using CSS transformations for aesthetic impact.
+ * - Implements a progress bar for active projects to visualize development state.
+ * - Utilizes `useTouch` hook to disable hover-based tilt on mobile for better accessibility.
+ * 
+ * @param {ProjectCardProps} props - The component props.
+ * @returns {JSX.Element} The rendered project card.
+ */
 function ProjectCard({
   id,
   title,
@@ -183,6 +211,18 @@ function ProjectCard({
   );
 }
 
+/**
+ * `ProjectMatrix` component that displays a grid of `ProjectCard` elements.
+ * 
+ * Acts as the primary repository of professional and experimental projects.
+ * 
+ * @architectural_decision
+ * - Uses `GSAP` with `ScrollTrigger` for high-performance, staggered entry animations of the project grid.
+ * - Employs a `grid` layout that adapts from 1 to 3 columns based on screen size.
+ * - Centralizes project data directly within the component for simplified management of the portfolio manifest.
+ * 
+ * @returns {JSX.Element} The rendered Project section.
+ */
 export function ProjectMatrix() {
   const containerRef = useRef<HTMLDivElement>(null);
 

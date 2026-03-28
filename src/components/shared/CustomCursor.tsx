@@ -3,6 +3,15 @@
 import { useEffect, useState } from "react";
 import { motion, useSpring, useMotionValue } from "motion/react";
 
+/**
+ * @component CustomCursor
+ * @description A physics-based `SYSTEM_CURSOR` leveraging `framer-motion` springs.
+ * Dynamically reacts to interactive elements (`A`, `BUTTON`) for enhanced 
+ * tactile feedback while maintaining a clean `MIX_BLEND` aesthetic.
+ * 
+ * @example
+ * <CustomCursor />
+ */
 export function CustomCursor() {
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);

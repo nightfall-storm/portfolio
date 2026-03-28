@@ -2,6 +2,9 @@
 
 import { motion } from "motion/react";
 
+/**
+ * List of technologies and their versions used in the developer's tech stack.
+ */
 const technologies = [
   "NEXT.JS [v16.2]",
   "REACT.JS [v19.0]",
@@ -22,6 +25,18 @@ const technologies = [
   "GITLAB // CI/CD",
 ];
 
+/**
+ * `TechTicker` component that creates a scrolling marquee of technologies.
+ * 
+ * This component adds a dynamic, data-driven feel to the interface, mimicking a "Command Center" ticker.
+ * 
+ * @architectural_decision
+ * - Implements a seamless infinite loop by duplicating the `technologies` array and using `motion.div`.
+ * - Sets `animate={{ x: "-50%" }}` with a `linear` ease to maintain a constant scroll speed.
+ * - Employs `fade-edge` gradient overlays to provide smooth entry and exit of the tech labels.
+ * 
+ * @returns {JSX.Element} The rendered scrolling ticker.
+ */
 export function TechTicker() {
   return (
     <div

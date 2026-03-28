@@ -13,6 +13,15 @@ const NAV_LINKS = [
   { label: "COMM_LINK", href: "#comm" },
 ];
 
+/**
+ * @component Navbar
+ * @description Primary navigation interface for the application.
+ * Integrates a real-time `SYSTEM_CLOCK`, mission status indicators,
+ * and responsive `MOBILE_OVERLAY` for cross-device command accessibility.
+ * 
+ * @example
+ * <Navbar />
+ */
 export function Navbar() {
   const [time, setTime] = useState("");
   const [isOpen, setIsOpen] = useState(false);

@@ -1,3 +1,12 @@
+/**
+ * @component QuoteSection
+ * @description A decorative section displaying a core architectural philosophy.
+ * Features high-impact typography and a minimalist SVG waveform to align with
+ * the project's `COMMAND_CENTER` aesthetic.
+ * 
+ * @example
+ * <QuoteSection />
+ */
 export function QuoteSection() {
   return (
     <section className="w-full max-w-[1000px] mx-auto px-6 py-32 flex flex-col items-center justify-center text-center relative">

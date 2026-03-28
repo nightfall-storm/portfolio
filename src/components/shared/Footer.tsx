@@ -1,5 +1,13 @@
 import Link from "next/link";
 
+/**
+ * @component Footer
+ * @description Application terminus displaying `EXTERNAL_LINKS`, 
+ * system versioning `[v3.0.0]`, and operational status signals.
+ * 
+ * @example
+ * <Footer />
+ */
 export function Footer() {
   return (
     <footer className="w-full border-t border-zinc-800/40 mt-32 py-12 font-mono text-[9px] text-muted-foreground/60 tracking-[0.3em] uppercase">

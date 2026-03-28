@@ -10,16 +10,40 @@ gsap.registerPlugin(ScrollTrigger);
 
 import { useTouch } from "../common/hooks/use-touch";
 
+/**
+ * Properties for the `ExperienceCard` component.
+ */
 interface ExperienceCardProps {
+  /** Unique identifier for the experience entry (e.g., "01"). */
   id: string;
+  /** The company or organization name. */
   title: string;
+  /** The job title or role held. */
   subtitle: string;
+  /** The duration of the experience. */
   date: string;
+  /** Key achievements or responsibilities. */
   highlights: string[];
+  /** Optional status badge (e.g., "CURRENT"). */
   badge?: React.ReactNode;
+  /** Flag to indicate a technical leadership role. */
   isLead?: boolean;
 }
 
+/**
+ * `ExperienceCard` component for displaying an individual professional role.
+ * 
+ * Features a 3D tilt effect on hover and a technical "Command Center" visual style.
+ * 
+ * @architectural_decision
+ * - Uses `framer-motion` for the 3D tilt effect (`rotateX`, `rotateY`) controlled by mouse movement.
+ * - Employs `useSpring` to smooth out the tilt transitions for a premium feel.
+ * - Implements a radial gradient "spotlight" effect that follows the cursor using CSS variables.
+ * - Integrates `useTouch` hook to disable tilt effects on touch devices, ensuring better UX.
+ * 
+ * @param {ExperienceCardProps} props - The component props.
+ * @returns {JSX.Element} The rendered experience card.
+ */
 function ExperienceCard({
   id,
   title,
@@ -125,6 +149,18 @@ function ExperienceCard({
   );
 }
 
+/**
+ * `ExperienceSection` component that displays the professional history.
+ * 
+ * Orchestrates the entry animation for multiple `ExperienceCard` components.
+ * 
+ * @architectural_decision
+ * - Uses `GSAP` with `ScrollTrigger` for high-performance scroll-based entrance animations.
+ * - Employs a `stagger` effect in GSAP to reveal cards sequentially as they enter the viewport.
+ * - Utilizes `useLayoutEffect` to ensure GSAP animations are initialized before the browser paints.
+ * 
+ * @returns {JSX.Element} The rendered Experience section.
+ */
 export function ExperienceSection() {
   const containerRef = useRef<HTMLDivElement>(null);
 

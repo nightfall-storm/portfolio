@@ -3,11 +3,19 @@
 import { motion, Variants } from "motion/react";
 import { GraduationCap, MapPin, Calendar, BookOpen } from "lucide-react";
 
+/**
+ * Represents an individual educational milestone.
+ */
 interface EducationEntry {
+  /** The degree or certification earned. */
   degree: string;
+  /** The name of the educational institution. */
   institution: string;
+  /** Physical location of the institution. */
   location: string;
+  /** Duration of the study. */
   date: string;
+  /** Current academic status (e.g., "GRADUATED", "ACTIVE_RESEARCH"). */
   status: string;
 }
 
@@ -35,6 +43,19 @@ const EDUCATION: EducationEntry[] = [
   },
 ];
 
+/**
+ * `AcademySection` component that showcases the developer's educational background.
+ * 
+ * Presents academic credentials in a clean, technical list format with subtle hover effects.
+ * 
+ * @architectural_decision
+ * - Uses `framer-motion` with `whileInView` to trigger entrance animations as the user scrolls.
+ * - Employs `itemVariants` for a consistent left-to-right slide and fade effect.
+ * - Implements a responsive `grid` for each entry to balance information density across devices.
+ * - Centralizes academic data in the `EDUCATION` constant for easy updates.
+ * 
+ * @returns {JSX.Element} The rendered Academy section.
+ */
 export function AcademySection() {
   const itemVariants: Variants = {
     hidden: { opacity: 0, x: -10 },

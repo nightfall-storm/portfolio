@@ -2,8 +2,25 @@
 
 import { motion, Variants } from "motion/react";
 
+/**
+ * Geographic coordinates for Tangier, Morocco.
+ * Displayed as a decorative element in the hero section.
+ */
 const COORDINATES = "LAT: 35.7595 N // LONG: 5.8340 W"; // Tangier, Morocco
 
+/**
+ * `Hero` component representing the primary landing section of the portfolio.
+ * 
+ * Features a "Command Center" aesthetic with high-impact typography and a technical system manifest.
+ * 
+ * @architectural_decision
+ * - Utilizes `framer-motion` for complex animation orchestration.
+ * - Employs `variants` for staggered entrance of child elements (`containerVariants`, `itemVariants`).
+ * - Implements a `scanning-line` animation using a continuous linear `motion.div` to reinforce the technical theme.
+ * - Uses `backdrop-blur` and `bg-grid` patterns to create depth and a futuristic UI feel.
+ * 
+ * @returns {JSX.Element} The rendered Hero section.
+ */
 export function Hero() {
   const containerVariants: Variants = {
     hidden: { opacity: 0 },

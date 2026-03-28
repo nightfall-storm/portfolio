@@ -37,12 +37,31 @@ const GitlabIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+/**
+ * Properties for the `TerminalInput` component.
+ */
 interface TerminalInputProps {
+  /** Descriptive label for the input field. */
   label: string;
+  /** Placeholder text shown when input is empty. */
   placeholder: string;
+  /** HTML input type (e.g., "text", "email"). */
   type?: string;
 }
 
+/**
+ * `TerminalInput` component that mimics a command-line interface input.
+ * 
+ * Features a dynamic focus animation and technical styling.
+ * 
+ * @architectural_decision
+ * - Uses `framer-motion` for the focus underline animation (`whileFocus`).
+ * - Employs `group-focus-within` to toggle the visibility of the "prompt" character (`>`).
+ * - Implements a clean, border-bottom design that aligns with the "Command Center" aesthetic.
+ * 
+ * @param {TerminalInputProps} props - The component props.
+ * @returns {JSX.Element} The rendered terminal-style input.
+ */
 function TerminalInput({
   label,
   placeholder,
@@ -71,12 +90,31 @@ function TerminalInput({
   );
 }
 
+/**
+ * Represents a contact or social media link.
+ */
 interface SignalEndpoint {
+  /** The icon component to display. */
   icon: React.ComponentType<{ className?: string }>;
+  /** The text label for the link. */
   label: string;
+  /** The destination URL. */
   href: string;
 }
 
+/**
+ * `ContactSection` component for establishing communication with the developer.
+ * 
+ * Combines a list of "Signal Endpoints" with an interactive "Terminal Form".
+ * 
+ * @architectural_decision
+ * - Uses `framer-motion` for entrance animations (`leftVariants`, `rightVariants`) with a custom cubic-bezier ease.
+ * - Implements a "Terminal Form" using `TerminalInput` and a stylized `textarea` for a cohesive technical theme.
+ * - Features a background grid and backdrop blur to maintain visual depth and consistency with other sections.
+ * - Dynamically renders contact links from a `signalEndpoints` configuration array.
+ * 
+ * @returns {JSX.Element} The rendered Contact section.
+ */
 export function ContactSection() {
   const signalEndpoints: SignalEndpoint[] = [
     {
