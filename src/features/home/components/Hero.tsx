@@ -96,22 +96,22 @@ export function Hero() {
 
           <div className="space-y-4 lg:space-y-6 text-left">
             <div className="text-left">
-              <span className="text-accent-cyan/60 tracking-widest text-left">&quot;environment&quot;:</span> &#123;
+              <span className="text-accent-cyan/60 tracking-widest text-left">&quot;environment&quot;:</span> {" {"}
               <div className="pl-6 sm:pl-8 text-foreground/90 text-left">
                 &quot;OS&quot;: [&quot;LINUX&quot;, &quot;FEDORA&quot;, &quot;UBUNTU&quot;, &quot;WINDOWS&quot;],<br />
                 &quot;EDITOR&quot;: &quot;ZED&quot;,<br />
                 &quot;SHELL&quot;: &quot;FISH&quot;
               </div>
-              &#125;,
+              {" },"}
             </div>
             <div className="text-left">
-              <span className="text-accent-cyan/60 tracking-widest text-left">&quot;core_stack&quot;:</span> &#123;
+              <span className="text-accent-cyan/60 tracking-widest text-left">&quot;core_stack&quot;:</span> {" {"}
               <div className="pl-6 sm:pl-8 text-foreground/90 text-left">
                 &quot;FRONTEND&quot;: [&quot;NEXT_JS&quot;, &quot;REACT&quot;, &quot;TAILWIND_V4&quot;],<br />
                 &quot;BACKEND_EXP&quot;: [&quot;HONO&quot;, &quot;NEST_JS&quot;, &quot;TYPESCRIPT&quot;],<br />
                 &quot;MOBILE&quot;: &quot;FLUTTER&quot;
               </div>
-              &#125;,
+              {" },"}
             </div>
             <div className="text-left">
               <span className="text-accent-cyan/60 tracking-widest text-left">&quot;experience&quot;:</span> <span className="text-foreground/90 text-left">&quot;3_YEARS+&quot;</span>,

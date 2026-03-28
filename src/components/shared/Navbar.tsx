@@ -78,7 +78,10 @@ export function Navbar() {
             
             <div className="flex items-center gap-2 sm:gap-3">
               <Shield className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-zinc-600 flex-shrink-0" />
-              <span className="text-zinc-300 font-bold tabular-nums text-[10px] sm:text-[11px] tracking-normal sm:tracking-widest">
+              <span 
+                suppressHydrationWarning
+                className="text-zinc-300 font-bold tabular-nums text-[10px] sm:text-[11px] tracking-normal sm:tracking-widest"
+              >
                 {time || "00:00:00"}
               </span>
             </div>
