@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion, Variants, AnimatePresence } from "motion/react";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import {
   Send,
   Terminal,
@@ -10,6 +11,7 @@ import {
   ShieldCheck,
   AlertTriangle,
   CheckCircle2,
+  Lock,
 } from "lucide-react";
 import { ContactFormState } from "../common/actions";
 import { contactSchema } from "../common/types/contact.schemas";
@@ -118,8 +120,10 @@ interface SignalEndpoint {
 
 export function ContactSection() {
   const formRef = useRef<HTMLFormElement>(null);
+  const captchaRef = useRef<HCaptcha>(null);
   const [isPending, setIsPending] = useState(false);
   const [state, setState] = useState<ContactFormState>({});
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
   const handleTransmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -140,6 +144,12 @@ export function ContactSection() {
       setState({
         errors: validation.error.flatten().fieldErrors,
       });
+      setIsPending(false);
+      return;
+    }
+
+    if (!captchaToken) {
+      setState({ errors: { form: ["CAPTCHA_VERIFICATION_REQUIRED"] } });
       setIsPending(false);
       return;
     }
@@ -169,6 +179,7 @@ export function ContactSection() {
           email,
           subject: `NEW_UPLINK: ${subject}`,
           message,
+          "h-captcha-response": captchaToken,
         }),
       });
 
@@ -177,21 +188,37 @@ export function ContactSection() {
       if (result.success) {
         setState({ success: true });
         formRef.current?.reset();
+        captchaRef.current?.resetCaptcha();
+        setCaptchaToken(null);
       } else {
         setState({
           errors: {
             form: [result.message || "TRANSMISSION_DENIED"],
           },
         });
+        captchaRef.current?.resetCaptcha();
+        setCaptchaToken(null);
       }
-    } catch (error) {
+    } catch (_error) {
       setState({
         errors: {
           form: ["CONNECTION_TERMINATED"],
         },
       });
+      captchaRef.current?.resetCaptcha();
+      setCaptchaToken(null);
     } finally {
       setIsPending(false);
+    }
+  };
+
+  const onCaptchaChange = (token: string | null) => {
+    setCaptchaToken(token);
+    if (
+      token &&
+      state.errors?.form?.includes("CAPTCHA_VERIFICATION_REQUIRED")
+    ) {
+      setState({});
     }
   };
 
@@ -372,6 +399,26 @@ export function ContactSection() {
                     [ERR: {state.errors.message[0]}]
                   </span>
                 )}
+              </div>
+
+              {/* hCaptcha Integration */}
+              <div className="pt-6 flex flex-col gap-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <Lock className="w-3 h-3 text-zinc-700" />
+                  <span className="font-mono text-[8px] text-zinc-700 tracking-[0.3em] uppercase">
+                    ANTI_SPAM_PROTOCOL
+                  </span>
+                </div>
+                <div className="overflow-hidden w-fit">
+                  <HCaptcha
+                    ref={captchaRef}
+                    sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY as string}
+                    onVerify={onCaptchaChange}
+                    onExpire={() => setCaptchaToken(null)}
+                    theme="dark"
+                    reCaptchaCompat={false}
+                  />
+                </div>
               </div>
 
               <AnimatePresence mode="wait">
