@@ -1,13 +1,19 @@
+"use client";
+
+import React from "react";
+import { motion } from "motion/react";
+
 const technologies = [
-  "PYTHON",
-  "TYPESCRIPT",
-  "RUST",
-  "DATABASES [SQL/NOSQL]",
-  "POSTGRESQL",
-  "DOCKER",
-  "NEXT.JS",
-  "REACT",
-  "GOLANG",
+  "NEXT.JS [v15.0]",
+  "HONO [v4.5]",
+  "FASTAPI [v0.11]",
+  "DOCKER [v27.x]",
+  "POSTGRESQL [v17]",
+  "TYPESCRIPT [v5.7]",
+  "GSAP [v3.12]",
+  "BASE_UI [v1.3]",
+  "PYTHON [v3.12]",
+  "GOLANG [v1.23]",
 ];
 
 export function TechTicker() {
@@ -20,27 +26,26 @@ export function TechTicker() {
       <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#08090f] to-transparent z-10 pointer-events-none"></div>
       <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#08090f] to-transparent z-10 pointer-events-none"></div>
 
-      <div className="flex whitespace-nowrap animate-in fade-in slide-in-from-right-10 duration-1000">
-        <div className="flex gap-16 font-mono text-[10px] tracking-[0.2em] text-zinc-600 uppercase w-max">
-          {/* Repeat array for seamless feel or just map once if it's not a true auto-scroller.
-              We'll map it twice to ensure it fills the screen on wide monitors. */}
-          {technologies.map((tech, index) => (
+      <div className="flex whitespace-nowrap">
+        <motion.div 
+          animate={{ x: [0, -1035] }} // 1035 is an estimate, will repeat to be safe
+          transition={{ 
+            repeat: Infinity, 
+            duration: 20, 
+            ease: "linear" 
+          }}
+          className="flex gap-16 font-mono text-[10px] tracking-[0.2em] text-zinc-500 uppercase w-max px-8"
+        >
+          {/* Multiply entries for seamless loop */}
+          {[...technologies, ...technologies, ...technologies].map((tech, index) => (
             <span
               key={index}
-              className="hover:text-accent-cyan transition-colors cursor-default"
+              className="hover:text-accent-cyan transition-colors cursor-default whitespace-nowrap"
             >
               {tech}
             </span>
           ))}
-          {technologies.map((tech, index) => (
-            <span
-              key={`dup-${index}`}
-              className="hover:text-accent-cyan transition-colors cursor-default"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
+        </motion.div>
       </div>
     </div>
   );

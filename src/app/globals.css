@@ -46,6 +46,9 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  
+  /* Custom Theme Colors */
+  --color-accent-cyan: #89b4fa;
 }
 
 :root {
@@ -138,19 +141,23 @@
       linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   }
-  
-  .text-accent-cyan {
-    color: #89b4fa; /* Soft icy blue/cyan */
+
+  .bg-grid-24 {
+    background-size: 24px 24px;
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   }
-  
-  .border-accent-cyan {
-    border-color: #89b4fa;
+
+  .scanning-line {
+    @apply absolute left-0 w-full h-px bg-accent-cyan/40 shadow-[0_0_8px_rgba(137,180,250,0.5)];
+    z-index: 10;
   }
 }
 
 @keyframes scan {
-  0% { top: -10%; opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { top: 110%; opacity: 0; }
+  0% { transform: translateY(-100%); opacity: 0; }
+  5% { opacity: 1; }
+  95% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
 }
