@@ -4,16 +4,20 @@ import React from "react";
 import { motion } from "motion/react";
 
 const technologies = [
-  "NEXT.JS [v15.0]",
-  "HONO [v4.5]",
-  "FASTAPI [v0.11]",
-  "DOCKER [v27.x]",
-  "POSTGRESQL [v17]",
+  "NEXT.JS [v16.2]",
+  "REACT.JS [v19.0]",
   "TYPESCRIPT [v5.7]",
-  "GSAP [v3.12]",
-  "BASE_UI [v1.3]",
-  "PYTHON [v3.12]",
-  "GOLANG [v1.23]",
+  "NEST.JS [v11]",
+  "FLUTTER [v3.24]",
+  "ASP.NET CORE [v8.0]",
+  "TAILWIND CSS [v4.0]",
+  "SHADCN UI",
+  "CLOUDFLARE",
+  "SUPABASE",
+  "FIREBASE",
+  "DOCKER",
+  "POSTGRESQL",
+  "GITLAB // CI/CD",
 ];
 
 export function TechTicker() {
@@ -28,10 +32,10 @@ export function TechTicker() {
 
       <div className="flex whitespace-nowrap">
         <motion.div 
-          animate={{ x: [0, -1035] }} // 1035 is an estimate, will repeat to be safe
+          animate={{ x: [0, -1500] }}
           transition={{ 
             repeat: Infinity, 
-            duration: 20, 
+            duration: 30, 
             ease: "linear" 
           }}
           className="flex gap-16 font-mono text-[10px] tracking-[0.2em] text-zinc-500 uppercase w-max px-8"

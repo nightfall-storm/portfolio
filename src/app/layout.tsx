@@ -5,10 +5,8 @@ import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/shared/Navbar";
 import { Footer } from "@/components/shared/Footer";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
-
 const geistSans = Geist({
-  variable: "--font-geist-sans",
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 
@@ -18,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bilal Nasser | System Architect",
-  description: "Portfolio of Bilal Nasser, System Architect and Software Engineer",
+  title: "Bilal Nnasser | Lead Software Engineer",
+  description: "Portfolio of Bilal Nnasser, Lead Software Engineer and Frontend Architect",
 };
 
 export default function RootLayout({
@@ -30,7 +28,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", "dark", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
+      className={cn("h-full", "antialiased", "dark", geistSans.variable, geistMono.variable, "font-sans")}
     >
       <body className="min-h-full flex flex-col selection:bg-accent-cyan selection:text-black">
         <Navbar />
