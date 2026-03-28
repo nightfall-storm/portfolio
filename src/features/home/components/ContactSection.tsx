@@ -1,7 +1,18 @@
 "use client";
 
-import { motion, Variants } from "motion/react";
-import { Send, Terminal, AtSign, ExternalLink } from "lucide-react";
+import { useState, useRef } from "react";
+import { motion, Variants, AnimatePresence } from "motion/react";
+import {
+  Send,
+  Terminal,
+  AtSign,
+  ExternalLink,
+  ShieldCheck,
+  AlertTriangle,
+  CheckCircle2,
+} from "lucide-react";
+import { ContactFormState } from "../common/actions";
+import { contactSchema } from "../common/types/contact.schemas";
 
 const GithubIcon = ({ className }: { className?: string }) => (
   <svg
@@ -41,45 +52,54 @@ const GitlabIcon = ({ className }: { className?: string }) => (
  * Properties for the `TerminalInput` component.
  */
 interface TerminalInputProps {
-  /** Descriptive label for the input field. */
   label: string;
-  /** Placeholder text shown when input is empty. */
   placeholder: string;
-  /** HTML input type (e.g., "text", "email"). */
+  name: string;
   type?: string;
+  error?: string;
+  disabled?: boolean;
 }
 
 /**
  * `TerminalInput` component that mimics a command-line interface input.
- * 
- * Features a dynamic focus animation and technical styling.
- * 
- * @architectural_decision
- * - Uses `framer-motion` for the focus underline animation (`whileFocus`).
- * - Employs `group-focus-within` to toggle the visibility of the "prompt" character (`>`).
- * - Implements a clean, border-bottom design that aligns with the "Command Center" aesthetic.
- * 
- * @param {TerminalInputProps} props - The component props.
- * @returns {JSX.Element} The rendered terminal-style input.
  */
 function TerminalInput({
   label,
   placeholder,
+  name,
   type = "text",
+  error,
+  disabled,
 }: TerminalInputProps) {
   return (
-    <div className="group relative flex flex-col sm:flex-row sm:items-center border-b border-zinc-800/40 py-5 focus-within:border-accent-cyan/40 transition-colors duration-700 gap-3">
-      <label className="font-mono text-[9px] text-zinc-600 uppercase tracking-[0.3em] sm:w-48 flex items-center gap-3">
-        <span className="text-accent-cyan/60 opacity-0 group-focus-within:opacity-100 transition-opacity">
+    <div
+      className={`group relative flex flex-col sm:flex-row sm:items-center border-b ${error ? "border-red-900/50" : "border-zinc-800/40"} py-5 focus-within:border-accent-cyan/40 transition-colors duration-700 gap-3`}
+    >
+      <label
+        className={`font-mono text-[9px] ${error ? "text-red-500" : "text-zinc-600"} uppercase tracking-[0.3em] sm:w-48 flex items-center gap-3`}
+      >
+        <span
+          className={`text-accent-cyan/60 opacity-0 group-focus-within:opacity-100 transition-opacity`}
+        >
           {">"}
         </span>
         {label}
       </label>
-      <input
-        type={type}
-        placeholder={placeholder}
-        className="flex-1 bg-transparent border-none outline-none font-mono text-[11px] text-zinc-300 placeholder:text-zinc-800 tracking-widest uppercase"
-      />
+      <div className="flex-1 flex flex-col gap-1">
+        <input
+          name={name}
+          type={type}
+          placeholder={placeholder}
+          disabled={disabled}
+          autoComplete="off"
+          className="w-full bg-transparent border-none outline-none font-mono text-[11px] text-zinc-300 placeholder:text-zinc-800 tracking-widest uppercase disabled:opacity-50"
+        />
+        {error && (
+          <span className="font-mono text-[8px] text-red-500/80 tracking-widest animate-pulse">
+            [ERR: {error}]
+          </span>
+        )}
+      </div>
       <motion.div
         initial={{ scaleX: 0 }}
         whileFocus={{ scaleX: 1 }}
@@ -90,32 +110,91 @@ function TerminalInput({
   );
 }
 
-/**
- * Represents a contact or social media link.
- */
 interface SignalEndpoint {
-  /** The icon component to display. */
   icon: React.ComponentType<{ className?: string }>;
-  /** The text label for the link. */
   label: string;
-  /** The destination URL. */
   href: string;
 }
 
-/**
- * `ContactSection` component for establishing communication with the developer.
- * 
- * Combines a list of "Signal Endpoints" with an interactive "Terminal Form".
- * 
- * @architectural_decision
- * - Uses `framer-motion` for entrance animations (`leftVariants`, `rightVariants`) with a custom cubic-bezier ease.
- * - Implements a "Terminal Form" using `TerminalInput` and a stylized `textarea` for a cohesive technical theme.
- * - Features a background grid and backdrop blur to maintain visual depth and consistency with other sections.
- * - Dynamically renders contact links from a `signalEndpoints` configuration array.
- * 
- * @returns {JSX.Element} The rendered Contact section.
- */
 export function ContactSection() {
+  const formRef = useRef<HTMLFormElement>(null);
+  const [isPending, setIsPending] = useState(false);
+  const [state, setState] = useState<ContactFormState>({});
+
+  const handleTransmission = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsPending(true);
+    setState({});
+
+    const formData = new FormData(e.currentTarget);
+    const rawData = {
+      email: formData.get("email"),
+      subject: formData.get("subject"),
+      message: formData.get("message"),
+    };
+
+    // 1. Client-Side Validation
+    const validation = contactSchema.safeParse(rawData);
+
+    if (!validation.success) {
+      setState({
+        errors: validation.error.flatten().fieldErrors,
+      });
+      setIsPending(false);
+      return;
+    }
+
+    const { email, subject, message } = validation.data;
+    const accessKey =
+      formData.get("access_key") ||
+      process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+
+    if (!accessKey) {
+      setState({ errors: { form: ["UPLINK_KEY_MISSING"] } });
+      setIsPending(false);
+      return;
+    }
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: "PORTFOLIO_UPLINK",
+          from_name: "PORTFOLIO_COMMAND_CENTER",
+          email,
+          subject: `NEW_UPLINK: ${subject}`,
+          message,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setState({ success: true });
+        formRef.current?.reset();
+      } else {
+        setState({
+          errors: {
+            form: [result.message || "TRANSMISSION_DENIED"],
+          },
+        });
+      }
+    } catch (error) {
+      setState({
+        errors: {
+          form: ["CONNECTION_TERMINATED"],
+        },
+      });
+    } finally {
+      setIsPending(false);
+    }
+  };
+
   const signalEndpoints: SignalEndpoint[] = [
     {
       icon: AtSign,
@@ -234,40 +313,107 @@ export function ContactSection() {
                 <div className="w-1.5 h-1.5 rounded-none bg-zinc-800" />
                 <div className="w-1.5 h-1.5 rounded-none bg-zinc-800" />
               </div>
-              <span className="font-mono text-[8px] sm:text-[9px] text-zinc-600 tracking-[0.3em] uppercase">
-                ENCRYPTED_SESSION_ACTIVE
-              </span>
+              <div className="flex items-center gap-3">
+                <ShieldCheck
+                  className={`w-3 h-3 ${isPending ? "text-accent-cyan animate-pulse" : "text-zinc-600"}`}
+                />
+                <span className="font-mono text-[8px] sm:text-[9px] text-zinc-600 tracking-[0.3em] uppercase">
+                  {isPending
+                    ? "UPLINK_IN_PROGRESS"
+                    : "ENCRYPTED_SESSION_ACTIVE"}
+                </span>
+              </div>
             </div>
 
-            <div className="space-y-2 sm:space-y-3 text-left">
+            <form
+              ref={formRef}
+              onSubmit={handleTransmission}
+              className="space-y-2 sm:space-y-3 text-left"
+            >
+              <input
+                type="hidden"
+                name="access_key"
+                value={process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY}
+              />
               <TerminalInput
+                name="email"
                 label="EMAIL_RECIPIENT>"
                 placeholder="IDENTIFIER@DOMAIN.SYS"
+                error={state.errors?.email?.[0]}
+                disabled={isPending}
               />
               <TerminalInput
+                name="subject"
                 label="SUBJECT_HEADER>"
                 placeholder="PROJECT_PROPOSAL_V1"
+                error={state.errors?.subject?.[0]}
+                disabled={isPending}
               />
-              <div className="group relative flex flex-col border-b border-zinc-800/40 py-6 focus-within:border-accent-cyan/40 transition-colors duration-700 text-left">
-                <label className="font-mono text-[9px] text-zinc-600 uppercase tracking-[0.3em] mb-5 flex items-center gap-3 text-left">
+              <div
+                className={`group relative flex flex-col border-b ${state.errors?.message?.[0] ? "border-red-900/50" : "border-zinc-800/40"} py-6 focus-within:border-accent-cyan/40 transition-colors duration-700 text-left`}
+              >
+                <label
+                  className={`font-mono text-[9px] ${state.errors?.message?.[0] ? "text-red-500" : "text-zinc-600"} uppercase tracking-[0.3em] mb-5 flex items-center gap-3 text-left`}
+                >
                   <span className="text-accent-cyan/60 opacity-0 group-focus-within:opacity-100 transition-opacity">
                     {">"}
                   </span>
                   TRANSMISSION_BODY
                 </label>
                 <textarea
+                  name="message"
                   rows={5}
                   placeholder="DESCRIBE_PROJECT_OR_OPPORTUNITY..."
-                  className="bg-transparent border-none outline-none font-mono text-[11px] text-zinc-300 placeholder:text-zinc-800 tracking-widest uppercase resize-none h-32 sm:h-36 text-left"
+                  disabled={isPending}
+                  className="bg-transparent border-none outline-none font-mono text-[11px] text-zinc-300 placeholder:text-zinc-800 tracking-widest uppercase resize-none h-32 sm:h-36 text-left disabled:opacity-50"
                 />
+                {state.errors?.message?.[0] && (
+                  <span className="font-mono text-[8px] text-red-500/80 tracking-widest animate-pulse mt-2">
+                    [ERR: {state.errors.message[0]}]
+                  </span>
+                )}
               </div>
-            </div>
 
-            <button className="mt-10 sm:mt-12 w-full py-4 sm:py-5 border border-accent-cyan/20 bg-accent-cyan/[0.03] text-accent-cyan/80 font-mono text-[10px] tracking-[0.5em] uppercase hover:bg-accent-cyan/[0.06] hover:border-accent-cyan/40 transition-all flex items-center justify-center gap-4 group rounded-none overflow-hidden relative text-left">
-              <div className="absolute inset-0 bg-grid-24 opacity-[0.05] pointer-events-none" />
-              <span className="relative z-10">EXECUTE_TRANSMISSION</span>
-              <Send className="w-3.5 h-3.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform relative z-10" />
-            </button>
+              <AnimatePresence mode="wait">
+                {state.success ? (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="mt-10 sm:mt-12 p-4 border border-accent-cyan/20 bg-accent-cyan/[0.05] flex items-center gap-4"
+                  >
+                    <CheckCircle2 className="w-5 h-5 text-accent-cyan" />
+                    <span className="font-mono text-[10px] text-accent-cyan uppercase tracking-widest">
+                      SIGNAL_RECEIVED_SUCCESSFULLY. EXPECT_RESPONSE_SHORTLY.
+                    </span>
+                  </motion.div>
+                ) : state.errors?.form?.[0] ? (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-10 sm:mt-12 p-4 border border-red-900/20 bg-red-900/10 flex items-center gap-4"
+                  >
+                    <AlertTriangle className="w-5 h-5 text-red-500" />
+                    <span className="font-mono text-[10px] text-red-500 uppercase tracking-widest">
+                      CRITICAL_ERROR: {state.errors.form[0]}
+                    </span>
+                  </motion.div>
+                ) : (
+                  <button
+                    disabled={isPending}
+                    className="mt-10 sm:mt-12 w-full py-4 sm:py-5 border border-accent-cyan/20 bg-accent-cyan/[0.03] text-accent-cyan/80 font-mono text-[10px] tracking-[0.5em] uppercase hover:bg-accent-cyan/[0.06] hover:border-accent-cyan/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-4 group rounded-none overflow-hidden relative text-left"
+                  >
+                    <div className="absolute inset-0 bg-grid-24 opacity-[0.05] pointer-events-none" />
+                    <span className="relative z-10">
+                      {isPending ? "SENDING_SIGNAL..." : "EXECUTE_TRANSMISSION"}
+                    </span>
+                    <Send
+                      className={`w-3.5 h-3.5 ${isPending ? "animate-pulse" : "group-hover:translate-x-1 group-hover:-translate-y-1"} transition-transform relative z-10`}
+                    />
+                  </button>
+                )}
+              </AnimatePresence>
+            </form>
           </div>
 
           {/* Decorative Corner Accents */}
