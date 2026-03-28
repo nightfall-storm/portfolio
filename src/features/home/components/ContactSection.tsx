@@ -40,8 +40,8 @@ const GitlabIcon = ({ className }: { className?: string }) => (
 
 function TerminalInput({ label, placeholder, type = "text" }: any) {
   return (
-    <div className="group relative flex items-center border-b-[0.5px] border-zinc-800/40 py-5 focus-within:border-accent-cyan/40 transition-colors duration-700">
-      <label className="font-mono text-[9px] text-zinc-600 uppercase tracking-[0.3em] w-48 flex items-center gap-3">
+    <div className="group relative flex flex-col sm:flex-row sm:items-center border-b border-zinc-800/40 py-5 focus-within:border-accent-cyan/40 transition-colors duration-700 gap-3">
+      <label className="font-mono text-[9px] text-zinc-600 uppercase tracking-[0.3em] sm:w-48 flex items-center gap-3">
         <span className="text-accent-cyan/60 opacity-0 group-focus-within:opacity-100 transition-opacity">{">"}</span>
         {label}
       </label>
@@ -53,7 +53,7 @@ function TerminalInput({ label, placeholder, type = "text" }: any) {
       <motion.div 
         initial={{ scaleX: 0 }}
         whileFocus={{ scaleX: 1 }}
-        className="absolute bottom-[-0.5px] left-0 w-full h-[0.5px] bg-accent-cyan origin-left opacity-60"
+        className="absolute bottom-[-1px] left-0 w-full h-px bg-accent-cyan origin-left opacity-60"
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as any }}
       />
     </div>
@@ -62,8 +62,8 @@ function TerminalInput({ label, placeholder, type = "text" }: any) {
 
 export function ContactSection() {
   return (
-    <section className="w-full max-w-[1400px] mx-auto px-6 py-32 mb-32" id="comm">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
+    <section className="w-full max-w-[1400px] mx-auto px-6 py-20 sm:py-32 mb-24 lg:mb-32" id="comm">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
         
         {/* Left Side: Text and Signal Info */}
         <motion.div 
@@ -72,36 +72,36 @@ export function ContactSection() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as any }}
           viewport={{ once: true }}
         >
-          <div className="flex flex-col gap-3 mb-12">
+          <div className="flex flex-col gap-3 mb-10 sm:mb-12">
             <span className="font-mono text-[9px] text-accent-cyan/50 tracking-[0.5em] uppercase flex items-center gap-3">
               <Terminal className="w-3.5 h-3.5" /> UPLINK_PROTOCOL_V3
             </span>
-            <h2 className="text-5xl font-black tracking-tighter text-zinc-100 uppercase">
+            <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-100 uppercase">
               ESTABLISH_COMM
             </h2>
           </div>
 
-          <p className="font-mono text-[11px] text-zinc-500 leading-relaxed max-w-md mb-20 uppercase tracking-widest">
+          <p className="font-mono text-[10px] sm:text-[11px] text-zinc-500 leading-relaxed max-w-md mb-12 sm:mb-20 uppercase tracking-widest">
             Currently open for architectural audits, custom engineering contracts, and high-impact infrastructure partnerships.
             <br /><br />
             LOC: TANGIER_MAR <span className="text-zinc-800 mx-2">//</span> TZ: GMT+1
           </p>
 
-          <div className="space-y-16">
+          <div className="space-y-12 sm:space-y-16">
             <div className="flex flex-col gap-6">
               <span className="font-mono text-[9px] text-zinc-700 tracking-[0.4em] uppercase">DIRECT_SIGNAL_ENDPOINTS</span>
-              <div className="grid grid-cols-1 gap-5">
+              <div className="grid grid-cols-1 gap-4 sm:gap-5">
                 {[
                   { icon: AtSign, label: "BILALNNASSERNF@GMAIL.COM", href: "mailto:bilalnnassernf@gmail.com" },
                   { icon: ExternalLink, label: "BILAL-NNASSER", href: "https://linkedin.com/in/bilal-nnasser" },
                   { icon: GithubIcon, label: "NIGHTFALL-STORM", href: "https://github.com/nightfall-storm" },
                   { icon: GitlabIcon, label: "NIGHTFALL-STORM", href: "https://gitlab.com/nightfall-storm" }
                 ].map((item, idx) => (
-                  <a key={idx} href={item.href} target="_blank" rel="noreferrer" className="flex items-center gap-5 group w-fit">
-                    <div className="w-9 h-9 border-[0.5px] border-zinc-800/60 flex items-center justify-center group-hover:border-accent-cyan/40 transition-colors rounded-none bg-zinc-900/20">
-                      <item.icon className="w-4 h-4 text-zinc-600 group-hover:text-accent-cyan/80 transition-colors" />
+                  <a key={idx} href={item.href} target="_blank" rel="noreferrer" className="flex items-center gap-4 sm:gap-5 group w-fit">
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 border border-zinc-800/60 flex items-center justify-center group-hover:border-accent-cyan/40 transition-colors rounded-none bg-zinc-900/20">
+                      <item.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-zinc-600 group-hover:text-accent-cyan/80 transition-colors" />
                     </div>
-                    <span className="font-mono text-[10px] text-zinc-500 group-hover:text-white transition-colors tracking-[0.2em]">{item.label}</span>
+                    <span className="font-mono text-[9px] sm:text-[10px] text-zinc-500 group-hover:text-white transition-colors tracking-[0.15em] sm:tracking-[0.2em] break-all">{item.label}</span>
                   </a>
                 ))}
               </div>
@@ -117,23 +117,23 @@ export function ContactSection() {
           viewport={{ once: true }}
           className="relative"
         >
-          <div className="border-[0.5px] border-zinc-800/40 bg-[#0a0b10]/40 p-10 relative overflow-hidden rounded-none backdrop-blur-sm">
+          <div className="border border-zinc-800/40 bg-[#0a0b10]/40 p-6 sm:p-10 relative overflow-hidden rounded-none backdrop-blur-sm">
             {/* Background Grid */}
             <div className="absolute inset-0 bg-grid-24 opacity-[0.01] pointer-events-none" />
             
-            <div className="flex items-center justify-between mb-12 border-b-[0.5px] border-zinc-800/40 pb-6">
-              <div className="flex gap-2.5">
+            <div className="flex items-center justify-between mb-10 lg:mb-12 border-b border-zinc-800/40 pb-6">
+              <div className="flex gap-2">
                 <div className="w-1.5 h-1.5 rounded-none bg-zinc-800" />
                 <div className="w-1.5 h-1.5 rounded-none bg-zinc-800" />
                 <div className="w-1.5 h-1.5 rounded-none bg-zinc-800" />
               </div>
-              <span className="font-mono text-[9px] text-zinc-600 tracking-[0.3em] uppercase">ENCRYPTED_SESSION_ACTIVE</span>
+              <span className="font-mono text-[8px] sm:text-[9px] text-zinc-600 tracking-[0.3em] uppercase">ENCRYPTED_SESSION_ACTIVE</span>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
               <TerminalInput label="EMAIL_RECIPIENT>" placeholder="IDENTIFIER@DOMAIN.SYS" />
               <TerminalInput label="SUBJECT_HEADER>" placeholder="PROJECT_PROPOSAL_V1" />
-              <div className="group relative flex flex-col border-b-[0.5px] border-zinc-800/40 py-6 focus-within:border-accent-cyan/40 transition-colors duration-700">
+              <div className="group relative flex flex-col border-b border-zinc-800/40 py-6 focus-within:border-accent-cyan/40 transition-colors duration-700">
                 <label className="font-mono text-[9px] text-zinc-600 uppercase tracking-[0.3em] mb-5 flex items-center gap-3">
                   <span className="text-accent-cyan/60 opacity-0 group-focus-within:opacity-100 transition-opacity">{">"}</span>
                   TRANSMISSION_BODY
@@ -141,12 +141,12 @@ export function ContactSection() {
                 <textarea 
                   rows={5}
                   placeholder="DESCRIBE_ARCHITECTURE_NEEDS..."
-                  className="bg-transparent border-none outline-none font-mono text-[11px] text-zinc-300 placeholder:text-zinc-800 tracking-widest uppercase resize-none h-36"
+                  className="bg-transparent border-none outline-none font-mono text-[11px] text-zinc-300 placeholder:text-zinc-800 tracking-widest uppercase resize-none h-32 sm:h-36"
                 />
               </div>
             </div>
 
-            <button className="mt-12 w-full py-5 border-[0.5px] border-accent-cyan/20 bg-accent-cyan/[0.03] text-accent-cyan/80 font-mono text-[10px] tracking-[0.5em] uppercase hover:bg-accent-cyan/[0.06] hover:border-accent-cyan/40 transition-all flex items-center justify-center gap-4 group rounded-none overflow-hidden relative">
+            <button className="mt-10 sm:mt-12 w-full py-4 sm:py-5 border border-accent-cyan/20 bg-accent-cyan/[0.03] text-accent-cyan/80 font-mono text-[10px] tracking-[0.5em] uppercase hover:bg-accent-cyan/[0.06] hover:border-accent-cyan/40 transition-all flex items-center justify-center gap-4 group rounded-none overflow-hidden relative">
               <div className="absolute inset-0 bg-grid-24 opacity-[0.05] pointer-events-none" />
               <span className="relative z-10">EXECUTE_TRANSMISSION</span>
               <Send className="w-3.5 h-3.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform relative z-10" />
@@ -154,8 +154,8 @@ export function ContactSection() {
           </div>
 
           {/* Decorative Corner Accents */}
-          <div className="absolute -top-1 -left-1 w-5 h-5 border-t-[0.5px] border-l-[0.5px] border-accent-cyan/30" />
-          <div className="absolute -bottom-1 -right-1 w-5 h-5 border-b-[0.5px] border-r-[0.5px] border-accent-cyan/30" />
+          <div className="absolute -top-1 -left-1 w-5 h-5 border-t border-l border-accent-cyan/30" />
+          <div className="absolute -bottom-1 -right-1 w-5 h-5 border-b border-r border-accent-cyan/30" />
         </motion.div>
 
       </div>

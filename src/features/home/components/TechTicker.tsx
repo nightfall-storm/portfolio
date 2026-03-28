@@ -27,21 +27,21 @@ export function TechTicker() {
       id="tech"
     >
       {/* Fade Edges */}
-      <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#08090f] to-transparent z-10 pointer-events-none"></div>
-      <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#08090f] to-transparent z-10 pointer-events-none"></div>
+      <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none"></div>
+      <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none"></div>
 
       <div className="flex whitespace-nowrap">
         <motion.div 
-          animate={{ x: [0, -1500] }}
+          animate={{ x: "-50%" }}
           transition={{ 
             repeat: Infinity, 
-            duration: 30, 
+            duration: 40, 
             ease: "linear" 
           }}
-          className="flex gap-16 font-mono text-[10px] tracking-[0.2em] text-zinc-500 uppercase w-max px-8"
+          className="flex gap-16 font-mono text-[9px] sm:text-[10px] tracking-[0.2em] text-muted-foreground/60 uppercase w-max px-8"
         >
-          {/* Multiply entries for seamless loop */}
-          {[...technologies, ...technologies, ...technologies].map((tech, index) => (
+          {/* Duplicate for seamless infinite loop */}
+          {[...technologies, ...technologies].map((tech, index) => (
             <span
               key={index}
               className="hover:text-accent-cyan transition-colors cursor-default whitespace-nowrap"
