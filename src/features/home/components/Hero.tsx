@@ -48,7 +48,7 @@ export function Hero() {
         <div className="flex flex-col items-start lg:pr-12 text-left">
           <motion.div variants={itemVariants} className="mb-8 lg:mb-10 w-full text-left">
             <div className="px-3 py-1 border border-accent-cyan/20 bg-accent-cyan/5 text-accent-cyan font-mono text-[9px] sm:text-[10px] tracking-[0.3em] uppercase inline-block mb-6 lg:mb-8 rounded-none">
-              LEAD_FRONTEND_ENGINEER_V2.5
+              SOFTWARE_ENGINEER_V3.0
             </div>
             
             <h1 className="text-[14vw] sm:text-[12vw] lg:text-[7.5vw] font-black tracking-tighter leading-[0.8] text-foreground uppercase break-all sm:whitespace-nowrap text-left">
@@ -59,13 +59,13 @@ export function Hero() {
 
           <motion.div variants={itemVariants} className="max-w-xl text-left">
             <h2 className="text-xs sm:text-sm md:text-base font-mono tracking-[0.3em] sm:tracking-[0.4em] text-accent-cyan mb-8 lg:mb-10 uppercase text-left">
-              FRONTEND ENGINEER // TECHNICAL LEAD
+              SOFTWARE ENGINEER // FRONTEND ARCHITECT
             </h2>
             <p className="font-mono text-[10px] sm:text-[11px] md:text-xs leading-relaxed text-muted-foreground uppercase tracking-widest mb-10 lg:mb-14 max-w-lg text-balance text-left">
               Software Engineer specializing in modern UI architecture 
-              and technical leadership. Driving development teams at Logiciel Lab 
-              while architecting scalable frontend systems. Expanding 
-              expertise into backend architecture with Hono and NestJS.
+              and technical leadership. Driving high-performance frontend systems 
+              while maintaining strategic project management. Expanding 
+              deep expertise into backend systems with Hono and NestJS.
             </p>
             
             <div className="flex items-center gap-6 text-left">
@@ -114,7 +114,7 @@ export function Hero() {
               &#125;,
             </div>
             <div className="text-left">
-              <span className="text-accent-cyan/60 tracking-widest">&quot;experience&quot;:</span> <span className="text-foreground/90">&quot;LEAD_FRONTEND_SINCE_FEB_2025&quot;</span>,
+              <span className="text-accent-cyan/60 tracking-widest">&quot;experience&quot;:</span> <span className="text-foreground/90">&quot;3_YEARS+&quot;</span>,
             </div>
             <div className="text-left">
               <span className="text-accent-cyan/60 tracking-widest">&quot;status&quot;:</span> <span className="text-foreground/90">&quot;MASTER_CANDIDATE_ENSI&quot;</span>,

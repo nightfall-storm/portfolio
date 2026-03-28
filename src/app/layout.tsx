@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bilal Nnasser | Lead Software Engineer",
-  description: "Portfolio of Bilal Nnasser, Lead Software Engineer and Frontend Architect",
+  title: "Bilal Nnasser | Software Engineer",
+  description: "Portfolio of Bilal Nnasser, Software Engineer and Frontend Architect",
 };
 
 export default function RootLayout({

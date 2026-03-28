@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Terminal, Shield, Menu, X } from "lucide-react";
-import { motion, AnimatePresence, Variants } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 
 const NAV_LINKS = [
   { label: "MAIN_MENU", href: "#main" },
@@ -45,7 +45,7 @@ export function Navbar() {
                 BILAL NNASSER
               </span>
               <span className="text-zinc-600 font-mono text-[8px] tracking-[0.2em] uppercase leading-none hidden sm:block text-left">
-                LEAD_FRONTEND_ENGINEER
+                SOFTWARE_ENGINEER
               </span>
             </div>
           </div>

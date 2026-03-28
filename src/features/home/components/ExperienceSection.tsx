@@ -78,7 +78,7 @@ function ExperienceCard({
             <Briefcase className="w-3 h-3 text-accent-cyan/40" />
             <span>EXP_{id}</span>
             <span className="text-zinc-800">{`//`}</span>
-            <span className="flex items-center gap-1.5 italic">
+            <span className="flex items-center gap-1.5 italic text-left">
               {date}
             </span>
           </div>
@@ -109,7 +109,7 @@ function ExperienceCard({
         <div className="mt-8 pt-6 border-t border-zinc-800/40 relative z-10 text-left">
           <div className="flex items-center gap-3 text-left">
             <div className="px-2 py-0.5 border border-accent-cyan/20 bg-accent-cyan/5 text-accent-cyan font-mono text-[8px] tracking-[0.2em] uppercase">
-              LEADERSHIP_ROLE
+              TECHNICAL_LEAD
             </div>
             <div className="px-2 py-0.5 border border-zinc-800 bg-zinc-900/30 text-zinc-600 font-mono text-[8px] tracking-[0.2em] uppercase">
               MENTORING_ACTIVE
@@ -161,7 +161,7 @@ export function ExperienceSection() {
             <ExperienceCard 
               id="01"
               title="LOGICIEL_LAB"
-              subtitle="LEAD_FRONTEND_ENGINEER"
+              subtitle="SOFTWARE_ENGINEER"
               date="FEB_2025_PRESENT"
               isLead
               badge={
@@ -183,7 +183,7 @@ export function ExperienceSection() {
             <ExperienceCard 
               id="02"
               title="MEDIACARIS"
-              subtitle="FRONTEND_DEV_INTERN"
+              subtitle="SOFTWARE_ENGINEER_INTERN"
               date="OCT_2024_FEB_2025"
               highlights={[
                 "DEV_ULTRACONTROLE_MA_FR_SYSTEM",
