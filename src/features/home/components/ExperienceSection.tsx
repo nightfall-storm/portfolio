@@ -64,9 +64,8 @@ function ExperienceCard({
         rotateY: isTouch ? 0 : rotateY,
         transformStyle: "preserve-3d",
       }}
-      className="experience-card group relative border border-zinc-800/40 bg-[#0c0d14]/40 p-8 hover:border-accent-cyan/40 transition-colors flex flex-col justify-between min-h-[320px] overflow-hidden rounded-none opacity-0"
+      className="experience-card group relative border border-zinc-800/40 bg-[#0c0d14]/40 p-8 hover:border-accent-cyan/40 transition-colors flex flex-col justify-between min-h-[350px] overflow-hidden rounded-none opacity-0"
     >
-      {/* Cursor Spotlight */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_var(--mouse-x)_var(--mouse-y),rgba(137,180,250,0.02)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
       <div className="absolute inset-0 bg-grid-24 opacity-[0.01] pointer-events-none" />
 
@@ -110,7 +109,7 @@ function ExperienceCard({
               Technical Lead
             </div>
             <div className="px-2 py-0.5 border border-zinc-800 bg-zinc-900/30 text-zinc-600 font-mono text-[8px] tracking-[0.2em] uppercase">
-              Mentoring
+              Mentoring (2 BE, 1 FE)
             </div>
           </div>
         </div>
@@ -181,10 +180,10 @@ export function ExperienceSection() {
               </span>
             }
             highlights={[
-              "Led frontend architecture for Fasgo and Postuly, establishing modular design systems and stack decisions.",
-              "Built automated CI/CD pipelines and Cloudflare deployment workflows, reducing feature release cycles.",
-              "Mentored developers and set up architectural reviews to enforce code quality and scalability.",
-              "Optimized dashboard performance by refining state management and eliminating data request waterfalls.",
+              "Architected programmatic SEO systems using Next.js to scale indexing and content visibility for core platforms.",
+              "Mentored a cross-functional team (2 Backend, 1 Frontend), driving code reviews and architectural consistency.",
+              "Engineered modular frontend microservices for separate Recruiter, Candidate, and Admin ecosystems (Fasgo & Postuly).",
+              "Optimized performance and real-time syncing via WebSockets, SSE, Firebase, and custom automation scripts.",
             ]}
           />
 
@@ -194,10 +193,10 @@ export function ExperienceSection() {
             subtitle="Software Engineer Intern"
             date="Oct 2024 – Feb 2025"
             highlights={[
-              "Built multi-language UI kernel for UltraControle, supporting MA/FR markets.",
-              "Developed high-density dashboards ensuring real-time data accuracy.",
-              "Architected WebSocket-based appointment orchestration system for complex scheduling.",
-              "Implemented RBAC across admin modules for secure multi-tiered user access.",
+              "Engineered a multi-language UI kernel for Ultra Controle, supporting market expansion in Morocco and France.",
+              "Developed high-density dashboards for appointment tracking and secure data visualization.",
+              "Implemented RBAC across admin modules to manage secure multi-tiered user access.",
+              "Took full ownership of the frontend lifecycle using GitLab for version control and documentation.",
             ]}
           />
 
@@ -207,10 +206,10 @@ export function ExperienceSection() {
             subtitle="Web Developer Intern"
             date="May 2024 – Jun 2024"
             highlights={[
-              "Developed secure authentication and session management using ASP.NET Core.",
-              "Built automated notification engine for system-wide alerts.",
-              "Optimized database queries and indexing strategies to improve retrieval efficiency.",
-              "Created internal resource tracking system with schema validation and error-resilient handling.",
+              "Developed secure authentication and session management using ASP.NET Core Entity Framework.",
+              "Built an automated email notification engine for system-wide task deadline alerts.",
+              "Optimized database indexing and queries to improve resource tracking efficiency.",
+              "Architected internal task management systems with schema validation and error-resilient handling.",
             ]}
           />
         </div>
