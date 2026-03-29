@@ -98,7 +98,7 @@ function TerminalInput({
         />
         {error && (
           <span className="font-mono text-[8px] text-red-500/80 tracking-widest animate-pulse">
-            [ERR: {error}]
+            [Error: {error}]
           </span>
         )}
       </div>
@@ -149,7 +149,7 @@ export function ContactSection() {
     }
 
     if (!captchaToken) {
-      setState({ errors: { form: ["CAPTCHA_VERIFICATION_REQUIRED"] } });
+      setState({ errors: { form: ["Captcha verification required"] } });
       setIsPending(false);
       return;
     }
@@ -160,7 +160,7 @@ export function ContactSection() {
       process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
 
     if (!accessKey) {
-      setState({ errors: { form: ["UPLINK_KEY_MISSING"] } });
+      setState({ errors: { form: ["Uplink key missing"] } });
       setIsPending(false);
       return;
     }
@@ -174,10 +174,10 @@ export function ContactSection() {
         },
         body: JSON.stringify({
           access_key: accessKey,
-          name: "PORTFOLIO_UPLINK",
-          from_name: "PORTFOLIO_COMMAND_CENTER",
+          name: "Portfolio Contact",
+          from_name: "Portfolio Command Center",
           email,
-          subject: `NEW_UPLINK: ${subject}`,
+          subject: `New Message: ${subject}`,
           message,
           "h-captcha-response": captchaToken,
         }),
@@ -193,7 +193,7 @@ export function ContactSection() {
       } else {
         setState({
           errors: {
-            form: [result.message || "TRANSMISSION_DENIED"],
+            form: [result.message || "Transmission denied"],
           },
         });
         captchaRef.current?.resetCaptcha();
@@ -202,7 +202,7 @@ export function ContactSection() {
     } catch (_error) {
       setState({
         errors: {
-          form: ["CONNECTION_TERMINATED"],
+          form: ["Connection terminated"],
         },
       });
       captchaRef.current?.resetCaptcha();
@@ -225,22 +225,22 @@ export function ContactSection() {
   const signalEndpoints: SignalEndpoint[] = [
     {
       icon: AtSign,
-      label: "BILALNNASSERNF@GMAIL.COM",
+      label: "bilalnnassernf@gmail.com",
       href: "mailto:bilalnnassernf@gmail.com",
     },
     {
       icon: ExternalLink,
-      label: "BILAL-NNASSER",
+      label: "bilal-nnasser",
       href: "https://linkedin.com/in/bilal-nnasser",
     },
     {
       icon: GithubIcon,
-      label: "NIGHTFALL-STORM",
+      label: "nightfall-storm",
       href: "https://github.com/nightfall-storm",
     },
     {
       icon: GitlabIcon,
-      label: "NIGHTFALL-STORM",
+      label: "nightfall-storm",
       href: "https://gitlab.com/nightfall-storm",
     },
   ];
@@ -279,26 +279,26 @@ export function ContactSection() {
         >
           <div className="flex flex-col gap-3 mb-10 sm:mb-12 text-left">
             <span className="font-mono text-[9px] text-accent-cyan/50 tracking-[0.5em] uppercase flex items-center gap-3 text-left">
-              <Terminal className="w-3.5 h-3.5" /> UPLINK_PROTOCOL_V3
+              <Terminal className="w-3.5 h-3.5" /> Contact
             </span>
             <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-100 uppercase text-left">
-              ESTABLISH_COMM
+              Get in Touch
             </h2>
           </div>
 
           <p className="font-mono text-[10px] sm:text-[11px] text-zinc-500 leading-relaxed max-w-md mb-12 sm:mb-20 uppercase tracking-widest text-left">
-            Currently open for freelance projects, custom engineering contracts,
-            and high-impact professional opportunities.
+            Currently open for high-impact professional opportunities, custom
+            engineering contracts, and frontend architectural consulting.
             <br />
             <br />
-            LOC: TANGIER_MAR <span className="text-zinc-800 mx-2">{`//`}</span>{" "}
-            TZ: GMT+1
+            Location: Tangier, Morocco <span className="text-zinc-800 mx-2">{`//`}</span>{" "}
+            Timezone: GMT+1
           </p>
 
           <div className="space-y-12 sm:space-y-16 text-left">
             <div className="flex flex-col gap-6 text-left">
               <span className="font-mono text-[9px] text-zinc-700 tracking-[0.4em] uppercase text-left">
-                DIRECT_SIGNAL_ENDPOINTS
+                Direct Channels
               </span>
               <div className="grid grid-cols-1 gap-4 sm:gap-5 text-left">
                 {signalEndpoints.map((item, idx) => (
@@ -346,8 +346,8 @@ export function ContactSection() {
                 />
                 <span className="font-mono text-[8px] sm:text-[9px] text-zinc-600 tracking-[0.3em] uppercase">
                   {isPending
-                    ? "UPLINK_IN_PROGRESS"
-                    : "ENCRYPTED_SESSION_ACTIVE"}
+                    ? "Sending..."
+                    : "Secure Session Active"}
                 </span>
               </div>
             </div>
@@ -364,15 +364,15 @@ export function ContactSection() {
               />
               <TerminalInput
                 name="email"
-                label="EMAIL_RECIPIENT>"
-                placeholder="IDENTIFIER@DOMAIN.SYS"
+                label="Email Address"
+                placeholder="your@email.com"
                 error={state.errors?.email?.[0]}
                 disabled={isPending}
               />
               <TerminalInput
                 name="subject"
-                label="SUBJECT_HEADER>"
-                placeholder="PROJECT_PROPOSAL_V1"
+                label="Subject"
+                placeholder="Project Proposal"
                 error={state.errors?.subject?.[0]}
                 disabled={isPending}
               />
@@ -385,18 +385,18 @@ export function ContactSection() {
                   <span className="text-accent-cyan/60 opacity-0 group-focus-within:opacity-100 transition-opacity">
                     {">"}
                   </span>
-                  TRANSMISSION_BODY
+                  Message
                 </label>
                 <textarea
                   name="message"
                   rows={5}
-                  placeholder="DESCRIBE_PROJECT_OR_OPPORTUNITY..."
+                  placeholder="Describe your project or opportunity..."
                   disabled={isPending}
                   className="bg-transparent border-none outline-none font-mono text-[11px] text-zinc-300 placeholder:text-zinc-800 tracking-widest uppercase resize-none h-32 sm:h-36 text-left disabled:opacity-50"
                 />
                 {state.errors?.message?.[0] && (
                   <span className="font-mono text-[8px] text-red-500/80 tracking-widest animate-pulse mt-2">
-                    [ERR: {state.errors.message[0]}]
+                    [Error: {state.errors.message[0]}]
                   </span>
                 )}
               </div>
@@ -406,7 +406,7 @@ export function ContactSection() {
                 <div className="flex items-center gap-3 mb-2">
                   <Lock className="w-3 h-3 text-zinc-700" />
                   <span className="font-mono text-[8px] text-zinc-700 tracking-[0.3em] uppercase">
-                    ANTI_SPAM_PROTOCOL
+                    Spam Protection
                   </span>
                 </div>
                 <div className="overflow-hidden w-fit">
@@ -431,7 +431,7 @@ export function ContactSection() {
                   >
                     <CheckCircle2 className="w-5 h-5 text-accent-cyan" />
                     <span className="font-mono text-[10px] text-accent-cyan uppercase tracking-widest">
-                      SIGNAL_RECEIVED_SUCCESSFULLY. EXPECT_RESPONSE_SHORTLY.
+                      Message sent successfully. I will get back to you shortly.
                     </span>
                   </motion.div>
                 ) : state.errors?.form?.[0] ? (
@@ -442,7 +442,7 @@ export function ContactSection() {
                   >
                     <AlertTriangle className="w-5 h-5 text-red-500" />
                     <span className="font-mono text-[10px] text-red-500 uppercase tracking-widest">
-                      CRITICAL_ERROR: {state.errors.form[0]}
+                      Error: {state.errors.form[0]}
                     </span>
                   </motion.div>
                 ) : (
@@ -452,7 +452,7 @@ export function ContactSection() {
                   >
                     <div className="absolute inset-0 bg-grid-24 opacity-[0.05] pointer-events-none" />
                     <span className="relative z-10">
-                      {isPending ? "SENDING_SIGNAL..." : "EXECUTE_TRANSMISSION"}
+                      {isPending ? "Sending..." : "Send Message"}
                     </span>
                     <Send
                       className={`w-3.5 h-3.5 ${isPending ? "animate-pulse" : "group-hover:translate-x-1 group-hover:-translate-y-1"} transition-transform relative z-10`}

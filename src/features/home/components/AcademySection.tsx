@@ -21,25 +21,25 @@ interface EducationEntry {
 
 const EDUCATION: EducationEntry[] = [
   {
-    degree: "MASTER IN SOFTWARE ENGINEERING & WEB APPLICATIONS",
-    institution: "ENSI - STATE-RECOGNIZED",
-    location: "TANGIER, MOROCCO",
-    date: "NOV_2025_PRESENT",
-    status: "ACTIVE_RESEARCH",
+    degree: "Master in Software Engineering & Web Applications",
+    institution: "ENSI - State-Recognized",
+    location: "Tangier, Morocco",
+    date: "Nov 2025 – Present",
+    status: "In Progress",
   },
   {
-    degree: "BACHELOR'S DEGREE IN SOFTWARE ENGINEERING",
+    degree: "Bachelor's Degree in Software Engineering",
     institution: "FEDE",
-    location: "TANGIER, MOROCCO",
-    date: "SEP_2024_OCT_2025",
-    status: "GRADUATED",
+    location: "Tangier, Morocco",
+    date: "Sep 2024 – Oct 2025",
+    status: "Graduated",
   },
   {
-    degree: "DTS SPECIALIZED TECHNICIAN DIPLOMA",
+    degree: "Specialized Technician Diploma (DTS)",
     institution: "ISMONTIC",
-    location: "TANGIER, MOROCCO",
-    date: "SEP_2022_JUL_2024",
-    status: "GRADUATED",
+    location: "Tangier, Morocco",
+    date: "Sep 2022 – Jul 2024",
+    status: "Graduated",
   },
 ];
 
@@ -75,10 +75,10 @@ export function AcademySection() {
         {/* Header */}
         <div className="flex flex-col gap-2 text-left">
           <span className="font-mono text-[9px] text-accent-cyan/50 tracking-[0.5em] uppercase flex items-center gap-2 text-left">
-            <GraduationCap className="w-3 h-3" /> ACADEMIC_CREDENTIALS_V4
+            <GraduationCap className="w-3 h-3" /> Education
           </span>
           <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-100 uppercase text-left">
-            THE_ACADEMY
+            Academic Background
           </h2>
         </div>
 
@@ -115,7 +115,7 @@ export function AcademySection() {
                     </div>
                     <div className="flex items-center gap-2 text-left">
                       <BookOpen className="w-3 h-3 text-accent-cyan/40" />
-                      STATUS: {edu.status}
+                      Status: {edu.status}
                     </div>
                   </div>
                 </div>
@@ -123,7 +123,7 @@ export function AcademySection() {
                 <div className="hidden lg:flex flex-col items-end gap-2 text-right shrink-0">
                   <div className="w-12 h-[0.5px] bg-zinc-800" />
                   <span className="font-mono text-[8px] text-zinc-700 tracking-[0.4em] uppercase">
-                    LEVEL_SYNCED
+                    Verified
                   </span>
                 </div>
               </div>
