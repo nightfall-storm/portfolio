@@ -60,12 +60,12 @@ export function Hero() {
 
           <motion.div variants={itemVariants} className="max-w-xl">
             <h2 className="text-xs sm:text-sm md:text-base font-mono tracking-[0.3em] sm:tracking-[0.4em] text-accent-cyan mb-8 lg:mb-10 uppercase">
-              Frontend Architect & System Owner
+              Software Engineer // Frontend Lead
             </h2>
             <p className="font-mono text-[10px] sm:text-[11px] md:text-xs leading-relaxed text-muted-foreground uppercase tracking-widest mb-10 lg:mb-14 max-w-lg text-balance">
-              Responsible for core frontend infrastructure. Optimized UI
-              performance, reduced redundant data calls, and structured
-              system-wide frontend architecture for Fasgo and Postuly.
+              Driving the frontend engineering and technical leadership for
+              Fasgo and Postuly. Focusing on scalable Nextjs architecture, UI
+              performance, and deployment lifecycles.
             </p>
 
             <div className="flex items-center gap-6">
@@ -120,7 +120,7 @@ export function Hero() {
               {" {"}
               <div className="pl-6 sm:pl-8 text-foreground/90">
                 &quot;FRONTEND&quot;: [&quot;Next.js&quot;, &quot;React&quot;,
-                &quot;Tailwind CSS 4&quot;, &quot;GSAP&quot;],
+                &quot;Tailwind CSS&quot;, &quot;GSAP&quot;],
                 <br />
                 &quot;BACKEND&quot;: [&quot;Hono&quot;, &quot;NestJS&quot;,
                 &quot;ASP.NET Core&quot;],
@@ -135,7 +135,7 @@ export function Hero() {
               <span className="text-accent-cyan/60 tracking-widest">
                 &quot;experience&quot;:
               </span>{" "}
-              <span className="text-foreground/90">&quot;1.5+ Years&quot;</span>
+              <span className="text-foreground/90">&quot;1.7+ Years&quot;</span>
               ,
             </div>
             <div>
@@ -143,7 +143,7 @@ export function Hero() {
                 &quot;status&quot;:
               </span>{" "}
               <span className="text-foreground/90">
-                &quot;Master&apos;s Student at ENSI&quot;
+                &quot;Master in Software Engineering & Web Apps at ENSI&quot;
               </span>
               ,
             </div>

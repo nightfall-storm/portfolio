@@ -203,8 +203,8 @@ export function ExperienceSection() {
 
           <ExperienceCard
             id="03"
-            title="ECI Systems"
-            subtitle="Full Stack Development Intern"
+            title="ECI"
+            subtitle="Web Developer Intern"
             date="May 2024 – Jun 2024"
             highlights={[
               "Developed secure authentication and session management using ASP.NET Core.",
