@@ -17,6 +17,153 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 import { useTouch } from "../common/hooks/use-touch";
 
+const projects: ProjectCardProps[] = [
+  {
+    id: "01",
+    title: "UltraControle",
+    subtitle: "Inspection System",
+    date: "Oct 2024 – Feb 2025",
+    tag: "Production",
+    href: "https://ultracontrole.ma/fr",
+    description:
+      "Enterprise inspection platform designed for multi-region scalability. Developed a high-density dashboard for secure visit monitoring and reporting.",
+    features: [
+      "Multi-tenant UI Architecture",
+      "MA/FR Multi-language Kernel",
+      "RBAC Implementation",
+      "Frontend Lifecycle Ownership",
+    ],
+  },
+  {
+    id: "02",
+    title: "SavorScan",
+    subtitle: "Restaurant SaaS",
+    date: "2024 – Present",
+    tag: "SaaS Product",
+    href: "https://savor-scan.vercel.app/en/",
+    description:
+      "Digital QR-code menu engine focusing on high-performance content delivery and seamless hospitality management.",
+    features: [
+      "QR Code Dynamic Routing",
+      "Vercel Edge Distribution",
+      "Atomic Design System",
+      "Optimized Mobile UI",
+    ],
+  },
+  {
+    id: "03",
+    title: "Fasgo Platform",
+    subtitle: "Food Delivery App",
+    date: "2025 – Development",
+    tag: "Infrastructure",
+    description:
+      "Mission-critical administrative ecosystem orchestrating internal logistics via modular frontend microservices (Customer, Admin, and Gestion).",
+    features: [
+      "Technical Team Leadership",
+      "Programmatic SEO (Next.js)",
+      "SSE & WebSocket Integration",
+      "Performance Load-time Optimization",
+      "Server-first architecture",
+    ],
+  },
+  {
+    id: "04",
+    title: "Postuly",
+    subtitle: "Recruitment & Job Platform",
+    date: "2025 – Development",
+    tag: "SaaS Platform",
+    progress: 65,
+    description:
+      "Large-scale job posting and recruitment ecosystem. Architected four distinct frontend microservices to handle Public, Candidate, Recruiter, and Admin workflows.",
+    features: [
+      "Frontend Microservice Architecture",
+      "SSE Real-time Messaging & Chat",
+      "Multi-role Interface Orchestration",
+      "Lead Technical Architecture",
+    ],
+  },
+  {
+    id: "05",
+    title: "SwiftShoe",
+    subtitle: "E-commerce System",
+    date: "Aug 2024 – Oct 2024",
+    tag: "Mobile App",
+    href: "https://github.com/nightfall-storm/SwiftShoe",
+    description:
+      "Complete mobile e-commerce ecosystem for footwear using the MVVM pattern. Features secure authentication and real-time database sync.",
+    features: [
+      "Flutter & GetX Framework",
+      "Firebase Secure Auth",
+      "MVVM Architectural Pattern",
+      "Cloud Firestore Sync",
+    ],
+  },
+  {
+    id: "06",
+    title: "LightTasks",
+    subtitle: "UX & Productivity",
+    date: "Jul 2024 – Aug 2024",
+    tag: "Mobile App",
+    href: "https://github.com/nightfall-storm/LightTasks",
+    description:
+      "Offline-first task management application focusing on simplicity and user experience with local data persistence using Hive.",
+    features: [
+      "Flutter & Dart UI Engine",
+      "Hive Local Persistence",
+      "Clean UI/UX Principles",
+      "CRUD Logic Implementation",
+    ],
+  },
+  {
+    id: "07",
+    title: "Registration Dashboard",
+    subtitle: "Data Supervision",
+    date: "Apr 2024 – May 2024",
+    tag: "PHP Dashboard",
+    href: "https://github.com/nightfall-storm/Gestion-inscription",
+    description:
+      "Secure administrative portal for academic user supervision featuring secure authentication and role-based data management.",
+    features: [
+      "PHP & MySQL Secure Kernel",
+      "Role-based Permissions",
+      "jQuery Data Interaction",
+      "Academic Data Oversight",
+    ],
+  },
+  {
+    id: "08",
+    title: "Mobile Suite",
+    subtitle: "Android Utilities",
+    date: "Sep 2023 – Mar 2024",
+    tag: "Mobile App",
+    href: "https://github.com/nightfall-storm/WeatherApp",
+    description:
+      "A collection of native Android applications showcasing mobile engineering fundamentals, including real-time weather and REST API integration.",
+    features: [
+      "Kotlin & Java Native Development",
+      "REST API Consumption",
+      "Fragment-based Layouts",
+      "Mobile UX Fundamentals",
+    ],
+  },
+  {
+    id: "09",
+    title: "Utility Labs",
+    subtitle: "Micro-applications",
+    date: "2024 Collection",
+    tag: "Mobile Apps",
+    href: "https://github.com/nightfall-storm/TipCalculatorApp",
+    description:
+      "Suite of focused mobile utilities including specialized calculators and notification schedulers built with modular system design principles.",
+    features: [
+      "Notification Orchestrator",
+      "Logic-driven Calculators",
+      "Modular System Design",
+      "Open Source Repository",
+    ],
+  },
+];
+
 interface ProjectCardProps {
   id: string;
   title: string;
@@ -203,152 +350,6 @@ export function ProjectMatrix() {
 
     return () => ctx.revert();
   }, []);
-
-  const projects: ProjectCardProps[] = [
-    {
-      id: "01",
-      title: "UltraControle",
-      subtitle: "Inspection System",
-      date: "Oct 2024 – Feb 2025",
-      tag: "Production",
-      href: "https://ultracontrole.ma/fr",
-      description:
-        "Enterprise inspection platform handling multi-region complexity and real-time visit monitoring with reactive state management.",
-      features: [
-        "Multi-tenant UI Architecture",
-        "Reactive Visit Orchestration",
-        "WebSocket Integration",
-        "MA/FR Multi-language Kernel",
-      ],
-    },
-    {
-      id: "02",
-      title: "SavorScan",
-      subtitle: "Restaurant SaaS",
-      date: "2024 – Present",
-      tag: "SaaS Product",
-      href: "https://savor-scan.vercel.app/en/",
-      description:
-        "Digital QR-code menu engine focusing on high-performance content delivery and seamless hospitality management.",
-      features: [
-        "QR Code Dynamic Routing",
-        "Vercel Edge Distribution",
-        "Atomic Design System",
-        "Optimized Mobile UI",
-      ],
-    },
-    {
-      id: "03",
-      title: "Fasgo Platform",
-      subtitle: "Internal Back-office",
-      date: "2025 – Development",
-      tag: "Infrastructure",
-      description:
-        "Mission-critical administrative portal orchestrating complex internal logistics with advanced real-time data filtering and RBAC.",
-      features: [
-        "Frontend Team Leadership",
-        "Advanced Data Filtering",
-        "Cloudflare Protected Edge",
-        "Strict TypeScript Schemas",
-      ],
-    },
-    {
-      id: "04",
-      title: "Postuly Engine",
-      subtitle: "HR Workflow SaaS",
-      date: "2025 – Development",
-      tag: "Workflow Engine",
-      progress: 65,
-      description:
-        "SaaS recruitment engine optimizing candidate screening through intelligent filtering and workflow phase synchronization.",
-      features: [
-        "Frontend Lead Architecture",
-        "Phase Synchronization Logic",
-        "UI System Performance",
-        "Docker-ready Environment",
-      ],
-    },
-    {
-      id: "05",
-      title: "SwiftShoe",
-      subtitle: "E-commerce System",
-      date: "Aug 2024 – Oct 2024",
-      tag: "Mobile App",
-      href: "https://github.com/nightfall-storm/SwiftShoe",
-      description:
-        "Complete mobile e-commerce ecosystem for footwear. Features secure user authentication, real-time product catalogs, and a streamlined mobile checkout experience.",
-      features: [
-        "Flutter & GetX Framework",
-        "Firebase Secure Authentication",
-        "MVVM Architectural Pattern",
-        "Cloud Firestore Sync",
-      ],
-    },
-    {
-      id: "06",
-      title: "LightTasks",
-      subtitle: "UX & Productivity",
-      date: "Jul 2024 – Aug 2024",
-      tag: "Mobile App",
-      href: "https://github.com/nightfall-storm/LightTasks",
-      description:
-        "Intuitive task management application built with a focus on simplicity and user experience. Provides offline-first capabilities with reliable local data persistence.",
-      features: [
-        "Flutter & Dart UI Engine",
-        "Hive Offline Database",
-        "Clean UI/UX Principles",
-        "Productivity Sync Logic",
-      ],
-    },
-    {
-      id: "07",
-      title: "Registration Dashboard",
-      subtitle: "Data Supervision",
-      date: "Apr 2024 – May 2024",
-      tag: "PHP Dashboard",
-      href: "https://github.com/nightfall-storm/Gestion-inscription",
-      description:
-        "Secure administrative portal for user registration and academic supervision. Designed to provide clear data oversight and role-based access control for institutional use.",
-      features: [
-        "PHP & MySQL Secure Kernel",
-        "Role-based Permissions",
-        "jQuery Data Interaction",
-        "Management Log System",
-      ],
-    },
-    {
-      id: "08",
-      title: "Mobile Suite",
-      subtitle: "Android Utilities",
-      date: "Sep 2023 – Mar 2024",
-      tag: "Mobile App",
-      href: "https://github.com/nightfall-storm/WeatherApp",
-      description:
-        "A collection of native Android applications showcasing mobile engineering fundamentals, including real-time weather integration and food ordering systems.",
-      features: [
-        "Kotlin & Java Native Development",
-        "REST API Consumption",
-        "Fragment-based Layouts",
-        "Stable Release Version",
-      ],
-    },
-    {
-      id: "09",
-      title: "Utility Labs",
-      subtitle: "Micro-applications",
-      date: "2024 Collection",
-      tag: "Mobile Apps",
-      href: "https://github.com/nightfall-storm/TipCalculatorApp",
-      description:
-        "Suite of focused mobile utilities including specialized calculators and notification schedulers built to solve specific daily tasks with efficient code.",
-      features: [
-        "Notification Orchestrator",
-        "Logic-driven Calculators",
-        "Modular System Design",
-        "Open Source Repository",
-      ],
-    },
-  ];
 
   return (
     <section
