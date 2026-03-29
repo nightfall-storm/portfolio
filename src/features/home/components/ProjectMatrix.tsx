@@ -17,57 +17,37 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 import { useTouch } from "../common/hooks/use-touch";
 
+interface ProjectCardProps {
+  id: string;
+  title: string;
+  subtitle: string;
+  date: string;
+  description: string;
+  features?: string[];
+  progress?: number;
+  href?: string;
+  tag: string;
+  isRedacted?: boolean;
+}
+
 const projects: ProjectCardProps[] = [
   {
     id: "01",
-    title: "UltraControle",
-    subtitle: "Inspection System",
-    date: "Oct 2024 – Feb 2025",
-    tag: "Production",
-    href: "https://ultracontrole.ma/fr",
+    title: "Fasgo Platform",
+    subtitle: "Food Delivery Ecosystem",
+    date: "2025 – Development",
+    tag: "Infrastructure",
     description:
-      "Enterprise inspection platform designed for multi-region scalability. Developed a high-density dashboard for secure visit monitoring and reporting.",
+      "A comprehensive food delivery platform. Architected a modular frontend ecosystem featuring dedicated microservices for Customers, Admin oversight, and Gestion (Logistics Management).",
     features: [
-      "Multi-tenant UI Architecture",
-      "MA/FR Multi-language Kernel",
-      "RBAC Implementation",
-      "Frontend Lifecycle Ownership",
+      "Technical Team Leadership (Frontend)",
+      "Programmatic SEO for Market Growth",
+      "Real-time Sync (SSE & WebSockets)",
+      "Performance & Load-time Optimization",
     ],
   },
   {
     id: "02",
-    title: "SavorScan",
-    subtitle: "Restaurant SaaS",
-    date: "2024 – Present",
-    tag: "SaaS Product",
-    href: "https://savor-scan.vercel.app/en/",
-    description:
-      "Digital QR-code menu engine focusing on high-performance content delivery and seamless hospitality management.",
-    features: [
-      "QR Code Dynamic Routing",
-      "Vercel Edge Distribution",
-      "Atomic Design System",
-      "Optimized Mobile UI",
-    ],
-  },
-  {
-    id: "03",
-    title: "Fasgo Platform",
-    subtitle: "Food Delivery App",
-    date: "2025 – Development",
-    tag: "Infrastructure",
-    description:
-      "Mission-critical administrative ecosystem orchestrating internal logistics via modular frontend microservices (Customer, Admin, and Gestion).",
-    features: [
-      "Technical Team Leadership",
-      "Programmatic SEO (Next.js)",
-      "SSE & WebSocket Integration",
-      "Performance Load-time Optimization",
-      "Server-first architecture",
-    ],
-  },
-  {
-    id: "04",
     title: "Postuly",
     subtitle: "Recruitment & Job Platform",
     date: "2025 – Development",
@@ -83,7 +63,58 @@ const projects: ProjectCardProps[] = [
     ],
   },
   {
+    id: "03",
+    title: "StoreCraft",
+    subtitle: "E-commerce Platform & Editor",
+    date: "2025 – Present",
+    tag: "SaaS Platform",
+    href: "#",
+    description:
+      "Full-fledged e-commerce platform inspired by Shopify. Includes product, category, collection, and shipping management with a modular microservice backend and advanced frontend editor.",
+    features: [
+      "Dashboard for Products, Categories & Collections",
+      "Shipping, Inventory & Order Management",
+      "Microservice-based Editor Architecture",
+      "Drag-and-drop Components for Non-developers",
+      "Tailwind/CSS Customization for Developers",
+      "Dynamic Role-based Permissions",
+      "High-performance Responsive UI",
+    ],
+  },
+  {
+    id: "04",
+    title: "UltraControle",
+    subtitle: "Inspection System",
+    date: "Oct 2024 – Feb 2025",
+    tag: "Production",
+    href: "https://ultracontrole.ma/fr",
+    description:
+      "Enterprise inspection platform designed for multi-region scalability. Developed a high-density dashboard for secure visit monitoring and reporting.",
+    features: [
+      "Multi-tenant UI Architecture",
+      "MA/FR Multi-language Kernel",
+      "RBAC Implementation",
+      "Frontend Lifecycle Ownership",
+    ],
+  },
+  {
     id: "05",
+    title: "SavorScan",
+    subtitle: "Restaurant SaaS",
+    date: "2024 – Present",
+    tag: "SaaS Product",
+    href: "https://savor-scan.vercel.app/en/",
+    description:
+      "Digital QR-code menu engine focusing on high-performance content delivery and seamless hospitality management.",
+    features: [
+      "QR Code Dynamic Routing",
+      "Vercel Edge Distribution",
+      "Atomic Design System",
+      "Optimized Mobile UI",
+    ],
+  },
+  {
+    id: "06",
     title: "SwiftShoe",
     subtitle: "E-commerce System",
     date: "Aug 2024 – Oct 2024",
@@ -99,7 +130,7 @@ const projects: ProjectCardProps[] = [
     ],
   },
   {
-    id: "06",
+    id: "07",
     title: "LightTasks",
     subtitle: "UX & Productivity",
     date: "Jul 2024 – Aug 2024",
@@ -115,7 +146,7 @@ const projects: ProjectCardProps[] = [
     ],
   },
   {
-    id: "07",
+    id: "08",
     title: "Registration Dashboard",
     subtitle: "Data Supervision",
     date: "Apr 2024 – May 2024",
@@ -131,7 +162,7 @@ const projects: ProjectCardProps[] = [
     ],
   },
   {
-    id: "08",
+    id: "09",
     title: "Mobile Suite",
     subtitle: "Android Utilities",
     date: "Sep 2023 – Mar 2024",
@@ -147,7 +178,7 @@ const projects: ProjectCardProps[] = [
     ],
   },
   {
-    id: "09",
+    id: "10",
     title: "Utility Labs",
     subtitle: "Micro-applications",
     date: "2024 Collection",
@@ -163,19 +194,6 @@ const projects: ProjectCardProps[] = [
     ],
   },
 ];
-
-interface ProjectCardProps {
-  id: string;
-  title: string;
-  subtitle: string;
-  date: string;
-  description: string;
-  features?: string[];
-  progress?: number;
-  href?: string;
-  tag: string;
-  isRedacted?: boolean;
-}
 
 function ProjectCard({
   id,
