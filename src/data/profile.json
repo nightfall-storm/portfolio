@@ -1,0 +1,26 @@
+{
+  "badge": "Software Engineer",
+  "firstName": "BILAL",
+  "lastName": "NNASSER",
+  "role": "Software Engineer // Frontend Lead",
+  "summary": "Driving the frontend engineering and technical leadership for Fasgo and Postuly. Focusing on scalable Nextjs architecture, UI performance, and deployment lifecycles.",
+  "basedIn": "Based in Tangier, Morocco",
+  "coordinates": "LAT: 35.7595 N // LONG: 5.8340 W",
+  "location": "Tangier, Morocco",
+  "status": "Active",
+  "panel": {
+    "environment": {
+      "OS": ["Linux", "Fedora", "Ubuntu", "Windows"],
+      "EDITOR": "Zed",
+      "SHELL": "Fish"
+    },
+    "core_stack": {
+      "FRONTEND": ["Next.js", "React", "Tailwind CSS", "GSAP"],
+      "BACKEND": ["Hono", "NestJS", "ASP.NET Core"],
+      "INFRA": ["Cloudflare", "Docker", "CI/CD"]
+    },
+    "experience": "1.7+ Years",
+    "status": "Master in Software Engineering & Web Apps at ENSI",
+    "location": "Tangier, Morocco"
+  }
+}

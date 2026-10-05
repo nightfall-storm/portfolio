@@ -1,0 +1,154 @@
+[
+  {
+    "id": "01",
+    "title": "Fasgo Platform",
+    "subtitle": "Food Delivery Ecosystem",
+    "date": "2025 – Development",
+    "tag": "Infrastructure",
+    "description": "A comprehensive food delivery platform. Architected a modular frontend ecosystem featuring dedicated microservices for Customers, Admin oversight, and Gestion (Logistics Management).",
+    "features": [
+      "Technical Team Leadership (Frontend)",
+      "Programmatic SEO for Market Growth",
+      "Real-time Sync (SSE & WebSockets)",
+      "Performance & Load-time Optimization"
+    ]
+  },
+  {
+    "id": "02",
+    "title": "Postuly",
+    "subtitle": "Recruitment & Job Platform",
+    "date": "2025 – Development",
+    "tag": "SaaS Platform",
+    "progress": 65,
+    "description": "Large-scale job posting and recruitment ecosystem. Architected four distinct frontend microservices to handle Public, Candidate, Recruiter, and Admin workflows.",
+    "features": [
+      "Frontend Microservice Architecture",
+      "SSE Real-time Messaging & Chat",
+      "Multi-role Interface Orchestration",
+      "Lead Technical Architecture"
+    ]
+  },
+  {
+    "id": "03",
+    "title": "StoreCraft",
+    "subtitle": "E-commerce Platform & Editor",
+    "date": "2025 – Present",
+    "tag": "SaaS Platform",
+    "href": "#",
+    "description": "Full-fledged e-commerce platform inspired by Shopify. Includes product, category, collection, and shipping management with a modular microservice backend and advanced frontend editor.",
+    "features": [
+      "Dashboard for Products, Categories & Collections",
+      "Shipping, Inventory & Order Management",
+      "Microservice-based Editor Architecture",
+      "Drag-and-drop Components for Non-developers",
+      "Tailwind/CSS Customization for Developers",
+      "Dynamic Role-based Permissions",
+      "High-performance Responsive UI"
+    ]
+  },
+  {
+    "id": "04",
+    "title": "UltraControle",
+    "subtitle": "Inspection System",
+    "date": "Oct 2024 – Feb 2025",
+    "tag": "Production",
+    "href": "https://ultracontrole.ma/fr",
+    "description": "Enterprise inspection platform designed for multi-region scalability. Developed a high-density dashboard for secure visit monitoring and reporting.",
+    "features": [
+      "Multi-tenant UI Architecture",
+      "MA/FR Multi-language Kernel",
+      "RBAC Implementation",
+      "Frontend Lifecycle Ownership"
+    ]
+  },
+  {
+    "id": "05",
+    "title": "SavorScan",
+    "subtitle": "Restaurant SaaS",
+    "date": "2024 – Present",
+    "tag": "SaaS Product",
+    "href": "https://savor-scan.vercel.app/en/",
+    "description": "Digital QR-code menu engine focusing on high-performance content delivery and seamless hospitality management.",
+    "features": [
+      "QR Code Dynamic Routing",
+      "Vercel Edge Distribution",
+      "Atomic Design System",
+      "Optimized Mobile UI"
+    ]
+  },
+  {
+    "id": "06",
+    "title": "SwiftShoe",
+    "subtitle": "E-commerce System",
+    "date": "Aug 2024 – Oct 2024",
+    "tag": "Mobile App",
+    "href": "https://github.com/nightfall-storm/SwiftShoe",
+    "description": "Complete mobile e-commerce ecosystem for footwear using the MVVM pattern. Features secure authentication and real-time database sync.",
+    "features": [
+      "Flutter & GetX Framework",
+      "Firebase Secure Auth",
+      "MVVM Architectural Pattern",
+      "Cloud Firestore Sync"
+    ]
+  },
+  {
+    "id": "07",
+    "title": "LightTasks",
+    "subtitle": "UX & Productivity",
+    "date": "Jul 2024 – Aug 2024",
+    "tag": "Mobile App",
+    "href": "https://github.com/nightfall-storm/LightTasks",
+    "description": "Offline-first task management application focusing on simplicity and user experience with local data persistence using Hive.",
+    "features": [
+      "Flutter & Dart UI Engine",
+      "Hive Local Persistence",
+      "Clean UI/UX Principles",
+      "CRUD Logic Implementation"
+    ]
+  },
+  {
+    "id": "08",
+    "title": "Registration Dashboard",
+    "subtitle": "Data Supervision",
+    "date": "Apr 2024 – May 2024",
+    "tag": "PHP Dashboard",
+    "href": "https://github.com/nightfall-storm/Gestion-inscription",
+    "description": "Secure administrative portal for academic user supervision featuring secure authentication and role-based data management.",
+    "features": [
+      "PHP & MySQL Secure Kernel",
+      "Role-based Permissions",
+      "jQuery Data Interaction",
+      "Academic Data Oversight"
+    ]
+  },
+  {
+    "id": "09",
+    "title": "Mobile Suite",
+    "subtitle": "Android Utilities",
+    "date": "Sep 2023 – Mar 2024",
+    "tag": "Mobile App",
+    "href": "https://github.com/nightfall-storm/WeatherApp",
+    "description": "A collection of native Android applications showcasing mobile engineering fundamentals, including real-time weather and REST API integration.",
+    "features": [
+      "Kotlin & Java Native Development",
+      "REST API Consumption",
+      "Fragment-based Layouts",
+      "Mobile UX Fundamentals"
+    ]
+  },
+  {
+    "id": "10",
+    "title": "Utility Labs",
+    "subtitle": "Micro-applications",
+    "date": "2024 Collection",
+    "tag": "Mobile Apps",
+    "href": "https://github.com/nightfall-storm/TipCalculatorApp",
+    "description": "Suite of focused mobile utilities including specialized calculators and notification schedulers built with modular system design principles.",
+    "features": [
+      "Notification Orchestrator",
+      "Logic-driven Calculators",
+      "Modular System Design",
+      "Open Source Repository"
+    ]
+  }
+]

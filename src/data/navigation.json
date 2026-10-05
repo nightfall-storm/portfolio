@@ -1,0 +1,7 @@
+[
+  { "label": "MAIN_MENU", "href": "#main" },
+  { "label": "EXPERIENCE", "href": "#experience" },
+  { "label": "PROJECTS", "href": "#projects" },
+  { "label": "ACADEMY", "href": "#academy" },
+  { "label": "COMM_LINK", "href": "#comm" }
+]

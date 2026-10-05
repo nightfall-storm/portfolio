@@ -1,0 +1,33 @@
+[
+  {
+    "id": "email",
+    "name": "EMAIL",
+    "label": "bilalnnassernf@gmail.com",
+    "href": "mailto:bilalnnassernf@gmail.com",
+    "inFooter": false
+  },
+  {
+    "id": "linkedin",
+    "name": "LINKEDIN",
+    "label": "bilal-nnasser",
+    "href": "https://linkedin.com/in/bilal-nnasser",
+    "inFooter": true,
+    "footerOrder": 2
+  },
+  {
+    "id": "github",
+    "name": "GITHUB",
+    "label": "nightfall-storm",
+    "href": "https://github.com/nightfall-storm",
+    "inFooter": true,
+    "footerOrder": 1
+  },
+  {
+    "id": "gitlab",
+    "name": "GITLAB",
+    "label": "nightfall-storm",
+    "href": "https://gitlab.com/nightfall-storm",
+    "inFooter": true,
+    "footerOrder": 3
+  }
+]

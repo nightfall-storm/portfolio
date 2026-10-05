@@ -1,0 +1,23 @@
+[
+  {
+    "degree": "Master in Software Engineering & Web Applications",
+    "institution": "ENSI - State-Recognized",
+    "location": "Tangier, Morocco",
+    "date": "Nov 2025 – Present",
+    "status": "In Progress"
+  },
+  {
+    "degree": "Bachelor's Degree in Software Engineering",
+    "institution": "FEDE",
+    "location": "Tangier, Morocco",
+    "date": "Sep 2024 – Oct 2025",
+    "status": "Graduated"
+  },
+  {
+    "degree": "Specialized Technician Diploma (DTS)",
+    "institution": "ISMONTIC",
+    "location": "Tangier, Morocco",
+    "date": "Sep 2022 – Jul 2024",
+    "status": "Graduated"
+  }
+]
