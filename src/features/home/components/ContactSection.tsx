@@ -2,19 +2,22 @@
 
 import { useState, useRef } from "react";
 import { motion, Variants, AnimatePresence } from "motion/react";
-import HCaptcha from "@hcaptcha/react-hcaptcha";
+import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile";
 import {
   Send,
   Terminal,
   AtSign,
-  ExternalLink,
   ShieldCheck,
   AlertTriangle,
   CheckCircle2,
   Lock,
 } from "lucide-react";
-import { ContactFormState } from "../common/actions";
-import { contactSchema } from "../common/types/contact.schemas";
+import {
+  contactSchema,
+  ContactFormState,
+} from "../common/types/contact.schemas";
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 const GithubIcon = ({ className }: { className?: string }) => (
   <svg
@@ -139,10 +142,19 @@ interface SignalEndpoint {
 
 export function ContactSection() {
   const formRef = useRef<HTMLFormElement>(null);
-  const captchaRef = useRef<HCaptcha>(null);
+  const turnstileRef = useRef<TurnstileInstance>(null);
   const [isPending, setIsPending] = useState(false);
   const [state, setState] = useState<ContactFormState>({});
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+
+  /**
+   * Clears the token and re-renders the widget so a fresh challenge is issued
+   * after either a successful or failed transmission.
+   */
+  const resetTurnstile = () => {
+    turnstileRef.current?.reset();
+    setTurnstileToken(null);
+  };
 
   const handleTransmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -151,6 +163,7 @@ export function ContactSection() {
 
     const formData = new FormData(e.currentTarget);
     const rawData = {
+      name: formData.get("name"),
       email: formData.get("email"),
       subject: formData.get("subject"),
       message: formData.get("message"),
@@ -167,77 +180,61 @@ export function ContactSection() {
       return;
     }
 
-    if (!captchaToken) {
+    if (!TURNSTILE_SITE_KEY) {
+      setState({
+        errors: { form: ["Verification unavailable: site key missing"] },
+      });
+      setIsPending(false);
+      return;
+    }
+
+    if (!turnstileToken) {
       setState({ errors: { form: ["Captcha verification required"] } });
       setIsPending(false);
       return;
     }
 
-    const { email, subject, message } = validation.data;
-    const accessKey =
-      formData.get("access_key") ||
-      process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
-
-    if (!accessKey) {
-      setState({ errors: { form: ["Uplink key missing"] } });
-      setIsPending(false);
-      return;
-    }
+    const { name, email, subject, message } = validation.data;
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: accessKey,
-          name: "Portfolio Contact",
-          from_name: "Portfolio Command Center",
+          name,
           email,
-          subject: `New Message: ${subject}`,
+          subject,
           message,
-          "h-captcha-response": captchaToken,
+          turnstileToken,
         }),
       });
 
-      const result = await response.json();
+      const result = await response.json().catch(() => null);
 
-      if (result.success) {
+      if (response.ok && result?.success) {
         setState({ success: true });
         formRef.current?.reset();
-        captchaRef.current?.resetCaptcha();
-        setCaptchaToken(null);
+        resetTurnstile();
       } else {
         setState({
           errors: {
-            form: [result.message || "Transmission denied"],
+            form: [result?.error || "Transmission denied"],
           },
         });
-        captchaRef.current?.resetCaptcha();
-        setCaptchaToken(null);
+        resetTurnstile();
       }
-    } catch (_error) {
+    } catch {
       setState({
         errors: {
           form: ["Connection terminated"],
         },
       });
-      captchaRef.current?.resetCaptcha();
-      setCaptchaToken(null);
+      resetTurnstile();
     } finally {
       setIsPending(false);
-    }
-  };
-
-  const onCaptchaChange = (token: string | null) => {
-    setCaptchaToken(token);
-    if (
-      token &&
-      state.errors?.form?.includes("CAPTCHA_VERIFICATION_REQUIRED")
-    ) {
-      setState({});
     }
   };
 
@@ -376,10 +373,12 @@ export function ContactSection() {
               onSubmit={handleTransmission}
               className="space-y-2 sm:space-y-3 text-left"
             >
-              <input
-                type="hidden"
-                name="access_key"
-                value={process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY}
+              <TerminalInput
+                name="name"
+                label="Name"
+                placeholder="Your Name"
+                error={state.errors?.name?.[0]}
+                disabled={isPending}
               />
               <TerminalInput
                 name="email"
@@ -420,7 +419,7 @@ export function ContactSection() {
                 )}
               </div>
 
-              {/* hCaptcha Integration */}
+              {/* Cloudflare Turnstile Integration */}
               <div className="pt-6 flex flex-col gap-4">
                 <div className="flex items-center gap-3 mb-2">
                   <Lock className="w-3 h-3 text-zinc-700" />
@@ -429,14 +428,20 @@ export function ContactSection() {
                   </span>
                 </div>
                 <div className="overflow-hidden w-fit">
-                  <HCaptcha
-                    ref={captchaRef}
-                    sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY as string}
-                    onVerify={onCaptchaChange}
-                    onExpire={() => setCaptchaToken(null)}
-                    theme="dark"
-                    reCaptchaCompat={false}
-                  />
+                  {TURNSTILE_SITE_KEY ? (
+                    <Turnstile
+                      ref={turnstileRef}
+                      siteKey={TURNSTILE_SITE_KEY}
+                      onSuccess={(token) => setTurnstileToken(token)}
+                      onExpire={() => setTurnstileToken(null)}
+                      onError={() => setTurnstileToken(null)}
+                      options={{ theme: "dark", responseField: false }}
+                    />
+                  ) : (
+                    <span className="font-mono text-[8px] text-red-500/80 tracking-widest uppercase">
+                      [Error: verification unavailable]
+                    </span>
+                  )}
                 </div>
               </div>
 
